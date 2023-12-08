@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 import org.tabbleman.oesm.entity.User;
 import org.tabbleman.oesm.repository.UserRepository;
 import org.tabbleman.oesm.service.UserService;
+
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -70,6 +73,16 @@ public class UserServiceImpl implements UserService {
             return user;
         }else {
             return null;
+        }
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        List<User> allUsers = userRepository.findAll();
+        if(allUsers.isEmpty()){
+            return null;
+        }else{
+            return allUsers;
         }
     }
 }

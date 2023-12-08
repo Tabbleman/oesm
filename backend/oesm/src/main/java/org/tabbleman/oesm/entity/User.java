@@ -14,7 +14,8 @@ import lombok.NoArgsConstructor;
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Use GenerationType.IDENTITY for auto-increment
+    // Use GenerationType.IDENTITY for auto-increment
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
     private String userName;
     private String userRealName;

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.tabbleman.oesm.entity.User;
 import org.tabbleman.oesm.service.UserService;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/user")
@@ -32,6 +34,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody User user) {
         try {
+            int state = userService.login(user);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Data received!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error authenticating user");
@@ -44,6 +47,16 @@ public class UserController {
             return ResponseEntity.ok(user);
         }else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<User>> getAllUsers(){
+        List<User > allUsers = userService.getAllUsers();
+        if(allUsers != null){
+            return ResponseEntity.ok(allUsers);
+        }else {
+            return null;
         }
     }
 }
