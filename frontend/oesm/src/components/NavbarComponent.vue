@@ -1,29 +1,41 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Exam System</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <router-link to="/" class="nav-link">Home</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/login" class="nav-link">Login</router-link>
-        </li>
-        <!-- 添加其他导航链接 -->
-      </ul>
+    <div class="container-fluid">
+      <router-link class="navbar-brand" to="/">考试系统</router-link>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <router-link class="nav-link" to="/user-profile"
+              >用户资料</router-link
+            >
+          </li>
+          <!-- 其他导航项... -->
+          <!-- <li class="nav-item">
+            <router-link class="nav-link" to="/exam">考试</router-link>
+          </li> -->
+        </ul>
+      </div>
     </div>
   </nav>
 </template>
 
 <script>
 export default {
-  // 组件逻辑
-}
+  name: "NavbarComponent",
+};
 </script>
 
 <style scoped>
-/* 可以在这里添加组件的局部样式 */
+/* 添加一些自定义样式（如果需要） */
 </style>
