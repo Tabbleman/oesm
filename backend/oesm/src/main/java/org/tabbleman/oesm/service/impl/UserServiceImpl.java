@@ -48,20 +48,29 @@ public class UserServiceImpl implements UserService {
      * 301-400          Error, todo put error in try-catch block
      */
     @Override
-    public Long login(LoginDto loginDto) {
+    public User login(LoginDto loginDto) {
         String userName = loginDto.getUserName();
         String userPassword = loginDto.getUserPassword();
 
         String dbPassword = userRepository.findByUserName(userName).getUserPassword();
+        User responseUser = new User();
+
         if(dbPassword != null){
             if(dbPassword.equals(userPassword)){
-                return 1L;
+                // login successfully
+                Long userId = userRepository.findByUserName(userName).getUserId();
+                Long userLevel = userRepository.findByUserName(userName).getUserRoleLevel();
+                responseUser.setUserName(userName);
+                responseUser.setUserId(userId);
+                responseUser.setUserRoleLevel(userLevel);
+
+                return responseUser;
             }
-            return 101L;
+            return responseUser;
         }else {
             // password emptinity will be check in frontend;
             // user not register!user
-            return 201L;
+            return responseUser;
         }
     }
 

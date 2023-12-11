@@ -21,6 +21,7 @@ public class UserController {
     private UserService userService;
 
     Logger logger = LoggerFactory.getLogger(UserController.class);
+    // todo change to user response entity
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
@@ -34,13 +35,16 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Long> login(@RequestBody LoginDto loginDto) {
+    public ResponseEntity<User> login(@RequestBody LoginDto loginDto) {
         try {
-            Long state = userService.login(loginDto);
-
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(state);
+            User responseUser = userService.login(loginDto);
+            if(responseUser.getUserId() != null) {
+                return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseUser);
+            }else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseUser);
+            }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(0L);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new User());
         }
     }
     @GetMapping("/userInfo/{userName}")

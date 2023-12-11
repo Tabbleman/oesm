@@ -10,7 +10,10 @@ import org.tabbleman.oesm.entity.Exam;
 import org.tabbleman.oesm.entity.Question;
 import org.tabbleman.oesm.repository.ExamRepository;
 import org.tabbleman.oesm.service.ExamService;
+import org.tabbleman.oesm.utils.qo.ExamQo;
+import org.tabbleman.oesm.utils.qo.UserExamsQo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +21,7 @@ import java.util.List;
  * Exam controller
  * functions                Actor               Descriptions
  * @Get
- * getAllExams              Teacher, Admin
+ * getAllExams              student
  * getAllQuestions          Teacher
  * getAllSingleQuestions    Teacher
  * getAllMultipleQuestion   Teacher
@@ -29,6 +32,7 @@ import java.util.List;
  * addNewQuestion           Teacher
  * createExam               Teacher             need pick different number of different type of question
  * finishExam               Student
+ *
  */
 @RestController
 @RequestMapping("/api/exam")
@@ -37,29 +41,35 @@ public class ExamController {
 
     @Autowired
     private ExamService examService;
-    @GetMapping("/allQuestions")
-    public ResponseEntity<List<Question>> getAllQuestions(){
-        List<Question> questions = examService.getAllQuestions();
-        logger.info("testing getquestion api");
-        if(questions != null){
-            return ResponseEntity.ok(questions);
-        }else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping("/all")
+    ResponseEntity<List<Exam>> getAllExam(String userId){
+        return ResponseEntity.status(1).build();
     }
-    // return exma for testing
 
-//    @PostMapping("/create")
-//    /*todo exam configuration*/
-//    public ResponseEntity<Exam> createExam(@RequestBody ExamConfigDto examConfig){
-//        Exam exam = examService.createExam(examConfig);
-//        return  ResponseEntity.ok(exam);
-//    }
+    /**
+     * for login user to view their task
+     *
+     * @param userExamsQo
+     * @return
+     */
+    @PostMapping("/user/exams")
+    ResponseEntity<List<Exam>> getUserExams(@RequestBody UserExamsQo userExamsQo){
+        List<Long> examIdList = examService.getUserExamsId(userExamsQo);
+        List<Exam> exams = new ArrayList<>();
+        if(examIdList.isEmpty()){
+            logger.info("Empty info");
+            System.out.println("+++++++" + userExamsQo.toString());
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(exams);
+        }
+        for(Long examId : examIdList){
+            Exam exam = examService.getExamByExamId(examId);
+            if (exam != null) {
+                exams.add(exam);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(exams);
 
-//    @PostMapping("/test")
-//    /*todo exam configuration*/
-//    public ResponseEntity<Exam> test(@RequestBody ExamConfigDto examConfig){
-//        Exam exam = examService.createExam(examConfig);
-//        return  ResponseEntity.ok(exam);
-//    }
+    }
+
+
 }

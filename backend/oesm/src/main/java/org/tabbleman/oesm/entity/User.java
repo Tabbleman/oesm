@@ -21,7 +21,7 @@ public class User {
 //    private String userRealName;
 
     private String userPassword;
-    private Integer userRoleLevel = 2;
+    private Long userRoleLevel = 2L;
 //    private String userEmail;
 
 }

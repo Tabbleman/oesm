@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.tabbleman.oesm.entity.Exam;
 import org.tabbleman.oesm.entity.Question;
 import org.tabbleman.oesm.repository.ExamRepository;
+import org.tabbleman.oesm.utils.qo.ExamQo;
+import org.tabbleman.oesm.utils.qo.UserExamsQo;
 
 import java.util.List;
 
@@ -13,7 +15,10 @@ import java.util.List;
  * todo:
  */
 public interface ExamService {
+    // for student:
+    public List<Long> getUserExamsId(UserExamsQo userExamsQo);
 
+    public Exam getExamByExamId(Long examId);
     public List<Question> getAllQuestions();
 
     public List<Question> getAllSingleQuestions();
