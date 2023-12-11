@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.tabbleman.oesm.entity.User;
 import org.tabbleman.oesm.repository.UserRepository;
 import org.tabbleman.oesm.service.UserService;
+import org.tabbleman.oesm.utils.dto.LoginDto;
+import org.tabbleman.oesm.utils.dto.RegisterDto;
 
 import java.util.List;
 
@@ -22,8 +24,12 @@ public class UserServiceImpl implements UserService {
      * 201-300          Error
      */
     @Override
-    public int register(User user) {
+    public int register(RegisterDto registerDto) {
         try {
+            User user = new User();
+            String userName = registerDto.getUserName(), userPassword = registerDto.getUserPassword();
+            user.setUserName(userName);
+            user.setUserPassword(userPassword);
             userRepository.save(user);
             return 1;
         }catch (Exception e){
@@ -42,20 +48,20 @@ public class UserServiceImpl implements UserService {
      * 301-400          Error, todo put error in try-catch block
      */
     @Override
-    public int login(User user) {
-        String userName = user.getUserName();
-        String userPassword = user.getUserPassword();
+    public Long login(LoginDto loginDto) {
+        String userName = loginDto.getUserName();
+        String userPassword = loginDto.getUserPassword();
 
         String dbPassword = userRepository.findByUserName(userName).getUserPassword();
         if(dbPassword != null){
             if(dbPassword.equals(userPassword)){
-                return 1;
+                return 1L;
             }
-            return 101;
+            return 101L;
         }else {
             // password emptinity will be check in frontend;
             // user not register!user
-            return 201;
+            return 201L;
         }
     }
 

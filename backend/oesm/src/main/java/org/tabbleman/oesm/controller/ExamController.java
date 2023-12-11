@@ -10,7 +10,6 @@ import org.tabbleman.oesm.entity.Exam;
 import org.tabbleman.oesm.entity.Question;
 import org.tabbleman.oesm.repository.ExamRepository;
 import org.tabbleman.oesm.service.ExamService;
-import org.tabbleman.oesm.utils.dto.ExamConfigDto;
 
 import java.util.List;
 
@@ -50,17 +49,17 @@ public class ExamController {
     }
     // return exma for testing
 
-    @PostMapping("/create")
-    /*todo exam configuration*/
-    public ResponseEntity<Exam> createExam(@RequestBody ExamConfigDto examConfig){
-        Exam exam = examService.createExam(examConfig);
-        return  ResponseEntity.ok(exam);
-    }
+//    @PostMapping("/create")
+//    /*todo exam configuration*/
+//    public ResponseEntity<Exam> createExam(@RequestBody ExamConfigDto examConfig){
+//        Exam exam = examService.createExam(examConfig);
+//        return  ResponseEntity.ok(exam);
+//    }
 
-    @PostMapping("/test")
-    /*todo exam configuration*/
-    public ResponseEntity<Exam> test(@RequestBody ExamConfigDto examConfig){
-        Exam exam = examService.createExam(examConfig);
-        return  ResponseEntity.ok(exam);
-    }
+//    @PostMapping("/test")
+//    /*todo exam configuration*/
+//    public ResponseEntity<Exam> test(@RequestBody ExamConfigDto examConfig){
+//        Exam exam = examService.createExam(examConfig);
+//        return  ResponseEntity.ok(exam);
+//    }
 }

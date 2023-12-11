@@ -21,9 +21,13 @@
             >
           </li>
           <!-- 其他导航项... -->
-          <!-- <li class="nav-item">
-            <router-link class="nav-link" to="/exam">考试</router-link>
-          </li> -->
+          <li class="nav-item">
+            <router-link class="nav-link" to="/" @click="logout">登出</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/exam">还没做的更多功能：）</router-link>
+          </li>
+
         </ul>
       </div>
     </div>
@@ -31,8 +35,19 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   name: "NavbarComponent",
+  methods:{
+    ...mapActions('user', {
+      clearUserInfo: 'clearUserInfo' // 假设你有一个 Vuex action 叫做 clearUserInfo
+    }),
+    logout() {
+      this.clearUserInfo(); // 调用 Vuex action
+      localStorage.removeItem('userInfo'); // 清除 localStorage 中的用户信息
+      this.$router.push('/login'); // 重定向到登录页面
+    }
+  }
 };
 </script>
 

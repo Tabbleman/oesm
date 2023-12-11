@@ -16,18 +16,29 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   data() {
     return {
-      username: '',
-      password: ''
+      userName: '',
+      userPassword: ''
     }
   },
   methods: {
-    login() {
-      // 在这里处理登录逻辑，可以使用 this.username 和 this.password 获取输入的值
-      // 例如，发送登录请求到服务器
-      console.log('Logging in with username:', this.username);
+    ...mapActions('user', {
+      loginUser: 'login' // 重命名 Vuex action
+    }),
+    
+    login(event) {
+      event.preventDefault(); // 阻止表单默认提交行为
+      this.loginUser({ // 调用重命名后的 Vuex action
+        userName: this.username,
+        userPassword: this.password
+      }).then(() => {
+        this.$router.push('/'); // 登录成功后重定向到首页
+      }).catch(error => {
+        console.error('Login failed:', error); // 登录失败的处理
+      });
     }
   }
 }

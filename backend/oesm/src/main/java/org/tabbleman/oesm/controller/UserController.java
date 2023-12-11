@@ -8,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.tabbleman.oesm.entity.User;
 import org.tabbleman.oesm.service.UserService;
+import org.tabbleman.oesm.utils.dto.LoginDto;
+import org.tabbleman.oesm.utils.dto.RegisterDto;
 
 import java.util.List;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -21,9 +23,9 @@ public class UserController {
     Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody User user) {
+    public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
         try {
-            int state = userService.register(user);
+            int state = userService.register(registerDto);
             return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
         } catch (Exception e) {
             e.printStackTrace();
@@ -32,12 +34,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User user) {
+    public ResponseEntity<Long> login(@RequestBody LoginDto loginDto) {
         try {
-            int state = userService.login(user);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Data received!");
+            Long state = userService.login(loginDto);
+
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(state);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error authenticating user");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(0L);
         }
     }
     @GetMapping("/userInfo/{userName}")

@@ -7,7 +7,6 @@ import org.tabbleman.oesm.entity.Question;
 import org.tabbleman.oesm.repository.ExamRepository;
 import org.tabbleman.oesm.repository.QuestionRepository;
 import org.tabbleman.oesm.service.ExamService;
-import org.tabbleman.oesm.utils.dto.ExamConfigDto;
 
 import java.util.Date;
 import java.util.List;
@@ -43,22 +42,4 @@ public class ExamServiceImpl implements ExamService {
         return null;
     }
 
-    @Override
-    public Exam createExam(ExamConfigDto configDto) {
-        Exam exam = new Exam();
-        exam.setExamName("Sample Exam");
-        exam.setExamQuestionSingleCount(configDto.getQuestionSingleCount());
-        exam.setExamQuestionMultipleCount(configDto.getQuestionMultipleCount());
-        exam.setExamQuestionTfCount(configDto.getQuestionTfCount());
-        // Set start and end timestamps
-        exam.setExamStartTimeStamp(new Date());
-        try{
-            examRepository.save(exam);
-            return exam;
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-
-    }
 }

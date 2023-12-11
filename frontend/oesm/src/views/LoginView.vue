@@ -13,6 +13,7 @@ import LoginFormComponent from '@/components/LoginFormComponent.vue'; // 导入 
 export default {
   components: {
     LoginFormComponent // 注册 LoginForm 组件
-  }
+  },
+  
 }
 </script>

@@ -2,12 +2,14 @@ package org.tabbleman.oesm.service;
 
 import org.tabbleman.oesm.entity.User;
 import org.tabbleman.oesm.repository.UserRepository;
+import org.tabbleman.oesm.utils.dto.LoginDto;
+import org.tabbleman.oesm.utils.dto.RegisterDto;
 
 import java.util.List;
 
 public interface UserService {
-    public int register(User user);
-    public int login(User user);
+    public int register(RegisterDto registerDto);
+    public Long login(LoginDto loginDto);
 
     public User getUserByName(String userName);
 

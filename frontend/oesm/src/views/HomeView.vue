@@ -2,7 +2,7 @@
   <div class="content-wrapper">
     <NavbarComponent />
     <div class="container">
-      <h1>Welcome to our Online Exam System</h1>
+      <h1>💩</h1>
       <div class="row">
         <div v-for="exam in exams" :key="exam.id" class="col-md-4 mb-4">
           <ExamCardComponent :exam="exam" />

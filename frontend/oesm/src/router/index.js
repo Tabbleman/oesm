@@ -28,9 +28,6 @@ const routes = [
     name: 'exam',
     component: ExamDetailsView
   },
-  {
-    path: '/'
-  }
 
 ]
 
