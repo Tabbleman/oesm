@@ -8,8 +8,7 @@
 
 <script>
 import NavbarComponent from '../components/NavbarComponent.vue';
-import QuestionsComponent from '../components/Exam/QuestionsComponent';
-
+import QuestionsComponent from '@/components/Exam/QuestionComponent.vue';
 export default {
   components: {
     NavbarComponent,

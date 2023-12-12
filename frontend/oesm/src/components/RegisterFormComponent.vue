@@ -9,10 +9,15 @@
         <label for="password">Password</label>
         <input type="password" class="form-control" id="password" v-model="password">
       </div>
-      <button type="submit" class="btn btn-primary">Login</button>
+      <div class="form-group">
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" class="form-control" id="confirm-password" v-model="confirmPassword">
+      </div>
+      <button type="submit" class="btn btn-primary" :disabled="!isPasswordValid">Login</button>
     </form>
   </div>
 </template>
+
 
 <script>
 import { mapActions } from 'vuex';

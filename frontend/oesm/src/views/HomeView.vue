@@ -9,31 +9,30 @@
         </div>
       </div>
     </div>
-    <FooterComponent /> 
+    <FooterComponent />
   </div>
 </template>
 
 <script>
-import NavbarComponent from '@/components/NavbarComponent.vue';
-import FooterComponent from '@/components/FooterComponent.vue';
-import ExamCardComponent from '@/components/Exam/ExamCardComponent.vue';
-
+import NavbarComponent from "@/components/NavbarComponent.vue";
+import FooterComponent from "@/components/FooterComponent.vue";
+import ExamCardComponent from "@/components/Exam/ExamCardComponent.vue";
+import { mapActions, mapState } from "vuex";
 export default {
   components: {
     NavbarComponent,
     FooterComponent,
-    ExamCardComponent
+    ExamCardComponent,
   },
-  data() {
-    return {
-      exams: [
-        // 假设这些是从 API 或 Vuex Store 获取的考试数据
-        { id: 1, name: 'Math Exam', date: '2023-01-01', time: '10:00 AM' },
-        { id: 2, name: 'Physics Exam', date: '2023-01-02', time: '02:00 PM' },
-        // 更多考试...
-      ]
-    };
-  }
+  computed: {
+    ...mapState('exam', ['exams']), // 从 Vuex 获取考试信息
+  },
+  created() {
+    this.fetchExams(); // 调用 fetchExams 动作获取考试信息
+  },
+  methods: {
+    ...mapActions('exam', ['fetchExams']), // 映射 fetchExams 动作
+  },
 };
 </script>
 

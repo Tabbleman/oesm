@@ -11,7 +11,7 @@ export default {
     }
   },
   actions: {
-    async fetchExams({ commit, rootState }) {
+    async fetchQuestion({ commit, rootState }) {
       // 模拟获取考试信息，实际中应替换为API请求
       const userId = rootState.user.userInfo.userId;
       api.post("/api/exam/user/exams", { "userId": userId })
