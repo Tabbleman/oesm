@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      *
-     * @param user
+     * @param loginDto
      * @return
      * 1-100(include)   OK
      * 101-200          Password error

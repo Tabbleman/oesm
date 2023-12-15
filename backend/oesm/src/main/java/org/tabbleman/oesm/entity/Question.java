@@ -17,18 +17,21 @@ public class Question {
     @Id
     private Long questionId;
     /**
-     * danxuan
-     * duoxuan
-     * panduan
+     * single
+     * multiple
+     * truefalse
      */
     private String questionType;
     private String questionName;
+    /**
+     * answer is the content of the choices.
+     * e
+     */
     private String questionAnswer;
-
     /**
      * choice splict format:
-     * "A.[]$B.[]$C.[]$D.[]"
+     * "[]$[]$[]$[]"
      * "T$F"
      */
-    private String questionChoices = "A.hello world$B.goodgood$C. fucn u$D.test";
+    private String questionChoices = "hello world$goodgood$fucn u$test";
 }

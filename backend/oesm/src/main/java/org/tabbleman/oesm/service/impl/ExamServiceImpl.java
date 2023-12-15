@@ -48,6 +48,18 @@ public class ExamServiceImpl implements ExamService {
         return examIds;
     }
 
+    @Override
+    public List<Question> generateQuestionsByExamId(Long examId) {
+        List<Question> questions = new ArrayList<>();
+        try {
+            questions = questionRepository.generateQuestions(5);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return questions;
+    }
+
     /**
      * this function is for single exam detail view in front end
      * @param examId
@@ -69,25 +81,7 @@ public class ExamServiceImpl implements ExamService {
      * todo handle null scenario.
      * @return
      */
-    @Override
-    public List<Question> getAllQuestions() {
-        return questionRepository.findAll();
-    }
 
-    @Override
-    public List<Question> getAllSingleQuestions() {
-        return null;
-    }
-
-    @Override
-    public List<Question> getAllMultipleQuestions() {
-        return null;
-    }
-
-    @Override
-    public List<Question> getAllTfQuestions() {
-        return null;
-    }
 
 
 }

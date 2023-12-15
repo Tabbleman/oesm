@@ -2,8 +2,8 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <div v-for="(question, index) in questions" :key="index" class="mb-3">
-          <QuestionComponent :data="question" />
+        <div v-for="(question, index) in examQuestions" :key="index" class="mb-3">
+          <QuestionComponent :question="question"/>
         </div>
       </div>
     </div>
@@ -12,17 +12,18 @@
 
 <script>
 import QuestionComponent from './QuestionComponent.vue';
-
+import { mapState } from 'vuex';
 export default {
   components: {
     QuestionComponent
   },
-  props: {
-    questions: { // 使用 'questions' 作为 prop 名
-      type: Array,
-      required: true
+  computed: {
+    ...mapState('exam', ['questions']),
+    examQuestions() {
+      return this.questions; // Assuming 'questions' is the exact name in your Vuex module
     }
-  }
+  },
+  
 };
 </script>
 

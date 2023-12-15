@@ -19,13 +19,9 @@ public interface ExamService {
     public List<Long> getUserExamsId(UserExamsQo userExamsQo);
 
     public Exam getExamByExamId(Long examId);
-    public List<Question> getAllQuestions();
 
-    public List<Question> getAllSingleQuestions();
+    public List<Question> generateQuestionsByExamId(Long examId);
 
-    public List<Question> getAllMultipleQuestions();
-
-    public List<Question> getAllTfQuestions();
 
 //    public Exam createExam(ExamConfigDto configDto);
 

@@ -4,7 +4,7 @@
       <h5 class="card-title">{{ exam.examName }}</h5>
       <!-- <p class="card-text">Date: {{ exam.date }}</p>
       <p class="card-text">Time: {{ exam.time }}</p> -->
-      <router-link :to="'/exam/' + exam.id" class="btn btn-primary">View Exam</router-link>
+      <router-link :to="'/exam/' + exam.examId" class="btn btn-primary">View Exam</router-link>
     </div>
   </div>
 </template>

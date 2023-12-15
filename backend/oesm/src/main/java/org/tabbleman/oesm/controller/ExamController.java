@@ -40,11 +40,6 @@ public class ExamController {
     @Autowired
     private ExamService examService;
 
-    @GetMapping("/all")
-    ResponseEntity<List<Exam>> getAllExam(String userId) {
-        return ResponseEntity.status(1).build();
-    }
-
     /**
      * for login user to view their task
      *
@@ -69,6 +64,16 @@ public class ExamController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(exams);
 
     }
+    @GetMapping(path = "/{examId}")
+    ResponseEntity<List<Question>> generateQuestionsByExamId(@PathVariable Long examId){
+        List<Question> questions = new ArrayList<>();
+        try {
+            questions = examService.generateQuestionsByExamId(examId);
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(questions);
+    }
 
 }

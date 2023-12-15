@@ -24,14 +24,14 @@ public class Exam {
     private String examName;
 //    private String examStatus;
 
-//    private String examQuestionCount = "10";
+    private String examQuestionCount = "10";
 
 //    dan xuan
-//    private String examQuestionSingleCount = "3";
+    private String examQuestionSingleCount = "3";
 //    duo xuan
-//    private String examQuestionMultipleCount = "3";
+    private String examQuestionMultipleCount = "3";
 //     pan duan
-//    private String examQuestionTfCount = "4";
+    private String examQuestionTfCount = "4";
 
 //    private Integer examTotalScore;
 
@@ -40,7 +40,7 @@ public class Exam {
 //    private String examQuestionTFScore;
 
 //    private String examTimeLimit;
-//    private Date examStartTimeStamp;
-//    private Date examEndTimeStamp;
+    private Date examStartTimeStamp;
+    private Date examEndTimeStamp;
 
 }

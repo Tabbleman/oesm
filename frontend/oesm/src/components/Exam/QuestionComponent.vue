@@ -1,26 +1,24 @@
 <template>
   <div class="question-card card">
     <div class="card-body">
-      <h5 class="card-title">{{ data.text }}</h5>
+      <h5 class="card-title">{{ question.questionName }}</h5>
       <ul class="list-group">
-        <li v-for="(option, index) in options" :key="index" class="list-group-item">
-          <template v-if="data.type === 'single'">
-            <!-- 单选题 -->
-            <input type="radio" :name="'question-' + data.id" :id="'option-' + data.id + '-' + index" :value="option">
-            <label :for="'option-' + data.id + '-' + index">{{ option }}</label>
+        <li v-for="(choice, index) in choices" :key="index" class="list-group-item">
+          <template v-if="question.questionType === 'single'">
+            <input type="radio" :name="'question-' + question.questionId" :id="'choice-' + question.questionId + '-' + index" :value="choice">
+            <label :for="'choice-' + question.questionId + '-' + index">{{ choice }}</label>
           </template>
-          <template v-else-if="data.type === 'multiple'">
-            <!-- 多选题 -->
-            <input type="checkbox" :id="'option-' + data.id + '-' + index" :value="option">
-            <label :for="'option-' + data.id + '-' + index">{{ option }}</label>
+          <template v-else-if="question.questionType === 'multiple'">
+            <input type="checkbox" :id="'choice-' + question.questionId + '-' + index" :value="choice">
+            <label :for="'choice-' + question.questionId + '-' + index">{{ choice }}</label>
           </template>
-          <template v-else-if="data.type === 'truefalse'">
-            <!-- 判断题 -->
-            <input type="radio" :name="'question-' + data.id" :id="'option-' + data.id + '-' + index" :value="option">
-            <label :for="'option-' + data.id + '-' + index">{{ option }}</label>
+          <template v-else-if="question.questionType === 'truefalse'">
+            <input type="radio" :name="'question-' + question.id" :id="'choice-' + question.id + '-' + index" :value="choice">
+            <label :for="'choice-' + question.questionId + '-' + index">{{ choice }}</label>
           </template>
         </li>
       </ul>
+
     </div>
   </div>
 </template>
@@ -28,16 +26,16 @@
 <script>
 export default {
   props: {
-    data: {
+    question: {
       type: Object,
       required: true
     }
   },
   computed: {
-    options() {
-      return this.data.options.split('$');
+    choices() {
+      return this.question.questionChoices.split('$');
     }
-  }
+  },
 };
 </script>
 
