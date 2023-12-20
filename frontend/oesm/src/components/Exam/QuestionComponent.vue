@@ -1,27 +1,27 @@
 <template>
-  <div class="question-card card">
+  <div class="question-card card mb-3">
     <div class="card-body">
       <h5 class="card-title">{{ question.questionName }}</h5>
       <ul class="list-group">
         <li v-for="(choice, index) in choices" :key="index" class="list-group-item">
-          <template v-if="question.questionType === 'single'">
-            <input type="radio" :name="'question-' + question.questionId" :id="'choice-' + question.questionId + '-' + index" :value="choice">
-            <label :for="'choice-' + question.questionId + '-' + index">{{ choice }}</label>
-          </template>
-          <template v-else-if="question.questionType === 'multiple'">
-            <input type="checkbox" :id="'choice-' + question.questionId + '-' + index" :value="choice">
-            <label :for="'choice-' + question.questionId + '-' + index">{{ choice }}</label>
-          </template>
-          <template v-else-if="question.questionType === 'truefalse'">
-            <input type="radio" :name="'question-' + question.id" :id="'choice-' + question.id + '-' + index" :value="choice">
-            <label :for="'choice-' + question.questionId + '-' + index">{{ choice }}</label>
-          </template>
+          <div v-if="question.questionType === 'single'" class="form-check">
+            <input class="form-check-input" type="radio" :name="'question-' + question.questionId" :id="'choice-' + question.questionId + '-' + index" :value="choice">
+            <label class="form-check-label" :for="'choice-' + question.questionId + '-' + index">{{ choice }}</label>
+          </div>
+          <div v-else-if="question.questionType === 'multiple'" class="form-check">
+            <input class="form-check-input" type="checkbox" :id="'choice-' + question.questionId + '-' + index" :value="choice">
+            <label class="form-check-label" :for="'choice-' + question.questionId + '-' + index">{{ choice }}</label>
+          </div>
+          <div v-else-if="question.questionType === 'truefalse'" class="form-check">
+            <input class="form-check-input" type="radio" :name="'question-' + question.id" :id="'choice-' + question.id + '-' + index" :value="choice">
+            <label class="form-check-label" :for="'choice-' + question.questionId + '-' + index">{{ choice }}</label>
+          </div>
         </li>
       </ul>
-
     </div>
   </div>
 </template>
+
 
 <script>
 export default {

@@ -24,6 +24,15 @@
           <li class="nav-item">
             <router-link class="nav-link" to="/" @click="logout">登出</router-link>
           </li>
+
+          <li class="nav-item" v-if="userInfo && userInfo.userRoleLevel === 1">
+            <router-link class="nav-link" to="/upload">上传题目</router-link>
+          </li>
+          
+          <li class="nav-item" v-if="userInfo && userInfo.userRoleLevel === 0">
+            <router-link class="nav-link" to="/admin">Admin Here!</router-link>
+          </li>
+          
           <li class="nav-item">
             <router-link class="nav-link" to="/exam">还没做的更多功能：）</router-link>
           </li>
@@ -35,7 +44,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 export default {
   name: "NavbarComponent",
   methods:{
@@ -47,7 +56,12 @@ export default {
       localStorage.removeItem('userInfo'); // 清除 localStorage 中的用户信息
       this.$router.push('/login'); // 重定向到登录页面
     }
-  }
+  },
+  computed: {
+    ...mapState({
+      userInfo: state => state.user.userInfo
+    })
+  },
 };
 </script>
 

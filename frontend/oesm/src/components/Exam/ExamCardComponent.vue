@@ -2,9 +2,9 @@
   <div class="card">
     <div class="card-body">
       <h5 class="card-title">{{ exam.examName }}</h5>
-      <!-- <p class="card-text">Date: {{ exam.date }}</p>
-      <p class="card-text">Time: {{ exam.time }}</p> -->
-      <router-link :to="'/exam/' + exam.examId" class="btn btn-primary">View Exam</router-link>
+      <p class="card-text">开始时间 <br> {{ exam.examStartTimeStamp }}</p>
+      <p class="card-text">结束时间 <br> {{ exam.examEndTimeStamp }}</p>
+      <router-link :to="'/exam/' + exam.examId" class="btn btn-primary">开始考试</router-link>
     </div>
   </div>
 </template>

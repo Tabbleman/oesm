@@ -6,6 +6,7 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue' // 导入LoginView组件
 import UserProfileView from '../views/UserProfileView.vue' // 导入UserProfileView组件
 import RegisterView from "@/views/RegisterView"
+import UploadQuestionView from '@/views/UploadQuestionView'
 const routes =
     [
       {path: '/', name: 'home', component: HomeView},
@@ -16,7 +17,8 @@ const routes =
       },
       {path: '/register', name: 'register', component: RegisterView},
       {path: '/user-profile', name: 'user-profile', component: UserProfileView},
-      {path: '/exam/:examId', name: 'exam-details', component: ExamDetailsView}
+      {path: '/exam/:examId', name: 'exam-details', component: ExamDetailsView},
+      {path: '/upload', name: 'upload-question', component: UploadQuestionView}
     ]
 
     const router =

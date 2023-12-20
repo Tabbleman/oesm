@@ -3,13 +3,13 @@
     <NavbarComponent></NavbarComponent>
     <div class="row">
       <div class="col-md-3">
-        <UserBriefCaseComponent :user="userProfile"/>
+        <UserBriefCaseComponent :user="userProfile" />
       </div>
       <div class="col-md-9">
-        <UserExamGradeHistoryComponent :exams="exams"/>
+        <UserExamGradeHistoryComponent :exams="exams" />
       </div>
     </div>
-    <FooterComponent/>
+    <FooterComponent />
   </div>
 </template>
 <script>
@@ -22,8 +22,8 @@ export default {
     NavbarComponent,
     UserBriefCaseComponent,
     UserExamGradeHistoryComponent,
-    FooterComponent
-},
+    FooterComponent,
+  },
   data() {
     return {
       userProfile: {

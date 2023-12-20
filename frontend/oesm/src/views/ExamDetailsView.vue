@@ -10,6 +10,10 @@
 import NavbarComponent from '../components/NavbarComponent.vue';
 import QuestionsComponent from '@/components/Exam/QuestionsComponent.vue';
 import { mapActions, mapState } from 'vuex';
+window.addEventListener('beforeunload', (e) => {
+  e.preventDefault();
+  e.returnValue = '';
+});
 
 export default {
   components: {

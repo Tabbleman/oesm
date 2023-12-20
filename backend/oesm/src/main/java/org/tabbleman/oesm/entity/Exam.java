@@ -1,5 +1,6 @@
 package org.tabbleman.oesm.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.DatabindException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,25 +23,19 @@ public class Exam {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long examId;
     private String examName;
-//    private String examStatus;
 
-    private String examQuestionCount = "10";
+    private Long examQuestionCount = 10L;
 
 //    dan xuan
-    private String examQuestionSingleCount = "3";
+    private Long examQuestionSingleCount = 3L;
 //    duo xuan
-    private String examQuestionMultipleCount = "3";
+    private Long examQuestionMultipleCount = 3L;
 //     pan duan
-    private String examQuestionTfCount = "4";
+    private Long examQuestionTfCount = 4L;
 
-//    private Integer examTotalScore;
-
-//    private String examQuestionSingleScore;
-//    private String examQuestionMultipleScore;
-//    private String examQuestionTFScore;
-
-//    private String examTimeLimit;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date examStartTimeStamp;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date examEndTimeStamp;
 
 }

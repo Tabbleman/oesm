@@ -1,6 +1,8 @@
 package org.tabbleman.oesm.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Question {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId;
     /**
      * single
@@ -34,4 +37,11 @@ public class Question {
      * "T$F"
      */
     private String questionChoices = "hello world$goodgood$fucn u$test";
+
+    public Question(String questionType, String questionName, String questionAnswer, String questionChoices) {
+        this.questionType = questionType;
+        this.questionName = questionName;
+        this.questionAnswer = questionAnswer;
+        this.questionChoices = questionChoices;
+    }
 }

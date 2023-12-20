@@ -1,0 +1,29 @@
+questionId,questionType,questionName,questionAnswer,questionChoices
+1,single,What is the capital of France?,Paris,Paris$London$Berlin$Madrid
+2,multiple,Select the prime numbers,"2,3,5",2$3$4$5
+3,truefalse,The earth is flat,False,True$False
+4,single,Which city is known as the 'City of Love'?,Paris,Paris$Rome$New York$London
+5,single,What is the capital of Japan?,Tokyo,Kyoto$Tokyo$Osaka$Hiroshima
+19,multiple,Which elements are noble gases?,"Helium, Neon, Argon",Oxygen$Helium$Neon$Argon
+20,multiple,What is the powerhouse of the cell?,Mitochondria,Nucleus$Mitochondria$Ribosome$Endoplasmic Reticulum
+21,single,Which country is famous for its tulips and windmills?,Netherlands,Netherlands$Belgium$Germany$France
+22,single,What is the largest desert in the world?,Sahara,Gobi$Sahara$Kalahari$Arabian
+23,single,In which city can you find the Colosseum?,Rome,Rome$Athens$Paris$London
+24,single,Which is the longest river in the world?,Nile,Amazon$Nile$Yangtze$Mississippi
+25,single,What is the smallest country in the world?,Vatican City,Vatican City$Monaco$Nauru$Liechtenstein
+26,multiple,What are the primary colors of light?,"Red, Green, Blue",Red$Green$Blue$Yellow
+27,multiple,What gas do plants absorb during photosynthesis?,Carbon Dioxide,Oxygen$Carbon Dioxide$Nitrogen$Hydrogen
+28,multiple,Which planet is known as the Red Planet?,Mars,Jupiter$Mars$Saturn$Venus 
+29,multiple,What is the chemical symbol for gold?,Au,Au$Ag$Fe$Cu
+30,multiple,Which animal is known for having the longest lifespan?,Greenland Shark,Elephant$Tortoise$Greenland Shark$Whale
+31,single,What city is famous for its Carnival celebration?,Rio de Janeiro,Rio de Janeiro$Venice$New Orleans$Munich
+32,single,Which country is home to the Great Barrier Reef?,Australia,Australia$Belize$Indonesia$Mexico
+33,single,Which Asian country is known as the Land of the Morning Calm?,South Korea,Japan$China$South Korea$Thailand
+34,single,What is the capital of Canada?,Ottawa,Toronto$Vancouver$Ottawa$Montreal
+35,single,In which country can you visit Machu Picchu?,Peru,Peru$Bolivia$Chile$Ecuador
+36,multiple,What is the main gas in Earth's atmosphere?,Nitrogen,Oxygen$Carbon Dioxide$Nitrogen$Argon
+37,multiple,Which vitamin is produced by the human body when exposed to sunlight?,Vitamin D,Vitamin A$Vitamin B$Vitamin C$Vitamin D
+38,multiple,Who developed the theory of relativity?,Albert Einstein,Isaac Newton$Albert Einstein$Nikola Tesla$Marie Curie
+39,multiple,What is the hardest natural substance on Earth?,Diamond,Diamond$Gold$Iron$Quartz
+40,multiple,Which planet in our solar system is known for its rings?,Saturn,Jupiter$Mars$Saturn$Uranus
+
