@@ -11,6 +11,7 @@
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
+      
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -21,20 +22,21 @@
             >
           </li>
           <!-- 其他导航项... -->
-          <li class="nav-item">
-            <router-link class="nav-link" to="/" @click="logout">登出</router-link>
-          </li>
-
+          
           <li class="nav-item" v-if="userInfo && userInfo.userRoleLevel === 1">
             <router-link class="nav-link" to="/upload">上传题目</router-link>
+          </li>
+          
+          <li class="nav-item" v-if="userInfo && userInfo.userRoleLevel === 1">
+            <router-link class="nav-link" to="/create-exam">发布考试</router-link>
           </li>
           
           <li class="nav-item" v-if="userInfo && userInfo.userRoleLevel === 0">
             <router-link class="nav-link" to="/admin">Admin Here!</router-link>
           </li>
-          
+                    
           <li class="nav-item">
-            <router-link class="nav-link" to="/exam">还没做的更多功能：）</router-link>
+            <router-link class="nav-link" to="/" @click="logout">登出</router-link>
           </li>
 
         </ul>

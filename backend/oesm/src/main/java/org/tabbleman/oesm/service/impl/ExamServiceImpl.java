@@ -1,22 +1,37 @@
 package org.tabbleman.oesm.service.impl;
 
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tabbleman.oesm.entity.Exam;
 import org.tabbleman.oesm.entity.ExamRecord;
 import org.tabbleman.oesm.entity.Question;
+import org.tabbleman.oesm.entity.User;
 import org.tabbleman.oesm.repository.ExamRecordRepository;
 import org.tabbleman.oesm.repository.ExamRepository;
 import org.tabbleman.oesm.repository.QuestionRepository;
+import org.tabbleman.oesm.repository.UserRepository;
 import org.tabbleman.oesm.service.ExamService;
+import org.tabbleman.oesm.service.QuestionService;
+import org.tabbleman.oesm.utils.dto.ExamConfigDto;
+import org.tabbleman.oesm.utils.dto.QuestionAnswerSheetDto;
 import org.tabbleman.oesm.utils.qo.UserExamsQo;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.Format;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.rmi.server.LogStream.log;
+
 @Service
+@Slf4j
 public class ExamServiceImpl implements ExamService {
     @Autowired
     ExamRepository examRepository;
@@ -25,6 +40,8 @@ public class ExamServiceImpl implements ExamService {
     @Autowired
     ExamRecordRepository examRecordRepository;
 
+    @Autowired
+    UserRepository userRepository;
     /**
      * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
      * api for user
@@ -45,14 +62,16 @@ public class ExamServiceImpl implements ExamService {
             e.printStackTrace();
         }
 
+
         return examIds;
     }
 
     @Override
     public List<Question> generateQuestionsByExamId(Long examId) {
         List<Question> questions = new ArrayList<>();
+        Exam exam = examRepository.findExamByExamId(examId);
         try {
-            questions = questionRepository.generateQuestions(5);
+            questions = questionRepository.generateQuestions(exam.getExamQuestionCount());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -71,17 +90,76 @@ public class ExamServiceImpl implements ExamService {
         try {
             exam = examRepository.findExamByExamId(examId);
         }catch (Exception e){
+
             e.printStackTrace();
         }
         return exam;
 
     }
 
-    /**
-     * todo handle null scenario.
-     * @return
-     */
+    @Override
+    public Exam createExam(ExamConfigDto configDto) {
+        log.info(configDto.toString());
+        String examName = configDto.getExamName();
+        Long classId = configDto.getClassId();
+        Long examQuestionCount = configDto.getExamQuestionCount();
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime startTime = LocalDateTime.parse(configDto.getExamStartTimeStamp(), formatter);
+        LocalDateTime endTime = LocalDateTime.parse(configDto.getExamEndTimeStamp(), formatter);
 
+        Timestamp examStartTimeStamp = Timestamp.valueOf(startTime);
+        Timestamp examEndTimeStamp = Timestamp.valueOf(endTime);
+        log.info(examStartTimeStamp.toString());
+        Exam exam = new Exam();
 
+        exam.setExamName(examName);
+        exam.setExamQuestionCount(examQuestionCount);
+        exam.setExamStartTimeStamp(examStartTimeStamp);
+        exam.setExamEndTimeStamp(examEndTimeStamp);
+        List<User> allUsers = userRepository.findAllByUserClassId(classId);
+        List<User> students = new ArrayList<>();
+        // filter student
+
+        for(User user: allUsers){
+            if(user.getUserRoleLevel() == 2){
+                students.add(user);
+            }
+        }
+        if(students.size() == 0){
+            log.info(examName);
+            return exam;
+        }
+
+        try{
+            // save exam infomation
+            Exam savedExam = examRepository.save(exam);
+            log.info("students: " + students.size());
+            for(User student: students){
+                ExamRecord record = new ExamRecord();
+                record.setExamId(savedExam.getExamId());
+                record.setUserId(student.getUserId());
+                record.setExamStatus(0L);
+                examRecordRepository.save(record);
+            }
+            log.info("create exam successfully!!!!  !");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return exam;
+    }
+
+    @Override
+    public Long judgeExam(List<QuestionAnswerSheetDto> answerSheet) {
+        Long score = 0L;
+        for(QuestionAnswerSheetDto answer: answerSheet){
+            Long questionId = answer.getQuestionId();
+            Question question = questionRepository.getQuestionByQuestionId(questionId);
+            if(question.getQuestionAnswer().equals(answer.getSheetAnswer())){
+                score += 1L;
+            }
+        }
+        return score;
+    }
 }

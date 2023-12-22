@@ -18,6 +18,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
     private String userName;
+//    for teacher, this section default value is null.
+    private Long userClassId = null;
 //    private String userRealName;
 
     private String userPassword;

@@ -37,7 +37,7 @@ public class Question {
      * "T$F"
      */
     private String questionChoices = "hello world$goodgood$fucn u$test";
-
+//    private Long subjectId;
     public Question(String questionType, String questionName, String questionAnswer, String questionChoices) {
         this.questionType = questionType;
         this.questionName = questionName;

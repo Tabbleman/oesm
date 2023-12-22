@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface QuestionRepository extends JpaRepository<Question, String> {
     @Query(value = "SELECT * FROM question ORDER BY RAND() LIMIT :n", nativeQuery = true)
-    List<Question> generateQuestions(@Param("n") int n);
+    List<Question> generateQuestions(@Param("n") Long n);
+
+    Question getQuestionByQuestionId(Long questionId);
 
 }

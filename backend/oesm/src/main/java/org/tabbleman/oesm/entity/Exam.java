@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -33,9 +34,9 @@ public class Exam {
 //     pan duan
     private Long examQuestionTfCount = 4L;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date examStartTimeStamp;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date examEndTimeStamp;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Timestamp examStartTimeStamp;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Timestamp examEndTimeStamp;
 
 }

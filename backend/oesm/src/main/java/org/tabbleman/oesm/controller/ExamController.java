@@ -12,6 +12,7 @@ import org.tabbleman.oesm.entity.Question;
 import org.tabbleman.oesm.service.ExamService;
 import org.tabbleman.oesm.service.QuestionService;
 import org.tabbleman.oesm.utils.dto.ExamConfigDto;
+import org.tabbleman.oesm.utils.dto.QuestionAnswerSheetDto;
 import org.tabbleman.oesm.utils.qo.UserExamsQo;
 
 import java.util.ArrayList;
@@ -95,12 +96,17 @@ public class ExamController {
      * @return
      */
     @PostMapping("/create")
-    ResponseEntity<Exam> createExam(ExamConfigDto examConfigDto){
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+    ResponseEntity<Exam> createExam(@RequestBody ExamConfigDto examConfigDto){
+        Exam exam = examService.createExam(examConfigDto);
+        return ResponseEntity.status(HttpStatus.OK).body(exam);
     }
 
-//    @PostMapping("/judge")
-//    ResponseEntity<Long> judgeStudentExam(@RequestParam)
+    @PostMapping("/judge")
+    ResponseEntity<Long> judgeStudentExam(@RequestBody QuestionAnswerSheetDto> answerSheets){
+        Long score = examService.judgeExam(answerSheets);
+
+        return ResponseEntity.status(HttpStatus.OK).body(score);
+    }
 
 
 }

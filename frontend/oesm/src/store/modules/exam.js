@@ -4,15 +4,29 @@ export default {
   namespaced: true,
   state: () => ({
     exams: [],  // 存储考试信息
-    questions: []
+    questions: [],
+    examConfig: {
+      'examName': null,
+      'classId': null,
+      'examQuestionCount': null,
+      'examStartTimeStamp': null,
+      'examEndTimeStamp': null
+    }
   }),
   mutations: {
+
     SET_EXAMS(state, exams) {
       state.exams = exams;
     },
     SET_QUESTIONS(state, questions) {
       state.questions = questions;
-    }
+    },
+    SET_EXAM_CONFIG(state, examConfig) {
+      state.examConfig = examConfig;
+    },
+    UPDATE_EXAM_CONFIG(state, {fieldName, value}) {
+      state.examConfig[fieldName] = value;
+    },
   },
   actions: {
     async fetchExams({commit, rootState}) {
@@ -42,16 +56,38 @@ export default {
             });
       });
     },
+
     async uploadQuestion({commit}, fileCsv) {
       try {
         const formData = new FormData();
-        formData.append('file', fileCsv); 
+        formData.append('file', fileCsv);
         const response = api.post('/api/exam/question/upload', formData)
         console.log(response)
         commit();
-      }catch(error){
+      } catch (error) {
         console.log(error);
       }
+    },
+
+    async submitExamData({commit}, examConfig) {
+      api.post('/api/exam/create', {
+           examName: examConfig.examName,
+           classId: examConfig.classId,
+           examQuestionCount: examConfig.examQuestionCount,
+           examStartTimeStamp: examConfig.examStartTimeStamp,
+           examEndTimeStamp: examConfig.examEndTimeStamp,
+         })
+          .then(response => {
+            commit('SET_EXAM_CONFIG', examConfig);
+            if (response && response.data) {
+              alert('Exam created successfully!');
+            }
+          })
+          .catch(error => {
+            console.error('Error submitting exam:', error);
+            alert('Failed to create exam!')
+          });
     }
+
   }
 };
