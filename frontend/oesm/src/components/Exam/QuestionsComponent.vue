@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-12">
         <div v-for="(question, index) in examQuestions" :key="index" class="mb-3">
           <QuestionComponent :question="question"/>
         </div>

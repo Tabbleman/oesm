@@ -35,7 +35,7 @@ export default {
         this.uploadQuestion(this.file)
           .then(() => {
             // 处理上传成功，可能是显示消息或跳转到其他视图
-            console.log('File uploaded successfully');
+            alert('File uploaded successfully');
             this.file = null;
           })
           .catch(error => {
@@ -51,5 +51,6 @@ export default {
 </script>
 
 <style scoped>
-/* Bootstrap已提供了大多数必要的样式，但您仍可以根据需要添加自定义样式 */
+
 </style>
+

@@ -1,6 +1,5 @@
 package org.tabbleman.oesm.service.impl;
 
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,22 +12,18 @@ import org.tabbleman.oesm.repository.ExamRepository;
 import org.tabbleman.oesm.repository.QuestionRepository;
 import org.tabbleman.oesm.repository.UserRepository;
 import org.tabbleman.oesm.service.ExamService;
-import org.tabbleman.oesm.service.QuestionService;
 import org.tabbleman.oesm.utils.dto.ExamConfigDto;
+import org.tabbleman.oesm.utils.dto.MetaQuestionAnswer;
 import org.tabbleman.oesm.utils.dto.QuestionAnswerSheetDto;
 import org.tabbleman.oesm.utils.qo.UserExamsQo;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.text.Format;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.rmi.server.LogStream.log;
 
 @Service
 @Slf4j
@@ -45,12 +40,14 @@ public class ExamServiceImpl implements ExamService {
     /**
      * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
      * api for user
+     * todo filter finished exam and unfinished exam.
      * @param userExamsQo
      * @return
      */
     @Override
     public List<Long> getUserExamsId(UserExamsQo userExamsQo) {
         List<ExamRecord> examRecords = new ArrayList<>();
+
         List<Long> examIds = new ArrayList<>();
         try{
             Long userId = userExamsQo.getUserId();
@@ -103,7 +100,8 @@ public class ExamServiceImpl implements ExamService {
         String examName = configDto.getExamName();
         Long classId = configDto.getClassId();
         Long examQuestionCount = configDto.getExamQuestionCount();
-
+        // todo
+        //  probably there could have bug
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime startTime = LocalDateTime.parse(configDto.getExamStartTimeStamp(), formatter);
         LocalDateTime endTime = LocalDateTime.parse(configDto.getExamEndTimeStamp(), formatter);
@@ -139,6 +137,7 @@ public class ExamServiceImpl implements ExamService {
                 ExamRecord record = new ExamRecord();
                 record.setExamId(savedExam.getExamId());
                 record.setUserId(student.getUserId());
+
                 record.setExamStatus(0L);
                 examRecordRepository.save(record);
             }
@@ -151,13 +150,42 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public Long judgeExam(List<QuestionAnswerSheetDto> answerSheet) {
+    public Long judgeExam(@org.jetbrains.annotations.NotNull QuestionAnswerSheetDto answerSheet) {
         Long score = 0L;
-        for(QuestionAnswerSheetDto answer: answerSheet){
+
+        Long userId = answerSheet.getUserId();
+        Long examId = answerSheet.getExamId();
+        List<MetaQuestionAnswer> metaQuestionAnswers = answerSheet.getQuestionAnswers();
+
+        for(MetaQuestionAnswer answer: metaQuestionAnswers){
             Long questionId = answer.getQuestionId();
+            String questionAnswer = answer.getSheetAnswer();
+
             Question question = questionRepository.getQuestionByQuestionId(questionId);
-            if(question.getQuestionAnswer().equals(answer.getSheetAnswer())){
-                score += 1L;
+            if(question.getQuestionType().equalsIgnoreCase("multiple")){
+                List<String> correctAnswers = List.of(question.getQuestionAnswer().split("$"));
+                List<String> sheetAnswers = List.of(question.getQuestionAnswer().split("$"));
+                if(correctAnswers.size() != sheetAnswers.size()){
+                    continue;
+                }
+                Collections.sort(correctAnswers);
+                Collections.sort(sheetAnswers);
+                boolean multipleCorrect = true;
+                for(int i = 0; i < correctAnswers.size(); i ++){
+                    if(! correctAnswers.get(i).equalsIgnoreCase(sheetAnswers.get(i))){
+                        multipleCorrect = false;
+                        break;
+                    }
+                }
+                if(multipleCorrect){
+                    score += 1;
+                }
+
+            }
+            else {
+                if (questionAnswer.equalsIgnoreCase(question.getQuestionAnswer())){
+                    score += 1L;
+                }
             }
         }
         return score;

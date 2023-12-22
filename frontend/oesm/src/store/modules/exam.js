@@ -18,6 +18,7 @@ export default {
     SET_EXAMS(state, exams) {
       state.exams = exams;
     },
+    
     SET_QUESTIONS(state, questions) {
       state.questions = questions;
     },
@@ -28,6 +29,7 @@ export default {
       state.examConfig[fieldName] = value;
     },
   },
+  
   actions: {
     async fetchExams({commit, rootState}) {
       // 模拟获取考试信息，实际中应替换为API请求
@@ -41,6 +43,7 @@ export default {
             // 这里可以处理错误，例如显示错误信息
           });
     },
+
     async fetchQuestions({commit, rootState}, examId) {
       return new Promise((resolve, reject) => {
         const userId = rootState.user.userInfo.userId;

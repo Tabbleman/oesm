@@ -16,7 +16,7 @@ public class ExamRecord {
     private Long examStatus;
 //     exam record for specific subject
 //    private Long subjectId;
-
+    private Long classId;
     private Long examId;
     private Long userId;
 

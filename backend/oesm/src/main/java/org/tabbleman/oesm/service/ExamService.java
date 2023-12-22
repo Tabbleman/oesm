@@ -1,19 +1,15 @@
 package org.tabbleman.oesm.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.tabbleman.oesm.entity.Exam;
 import org.tabbleman.oesm.entity.Question;
-import org.tabbleman.oesm.repository.ExamRepository;
 import org.tabbleman.oesm.utils.dto.ExamConfigDto;
 import org.tabbleman.oesm.utils.dto.QuestionAnswerSheetDto;
-import org.tabbleman.oesm.utils.qo.ExamQo;
 import org.tabbleman.oesm.utils.qo.UserExamsQo;
 
 import java.util.List;
 
 /**
  * todo pick question of specific level or range of level;
- *
  * todo:
  */
 public interface ExamService {
@@ -27,6 +23,6 @@ public interface ExamService {
 
     public Exam createExam(ExamConfigDto configDto);
 
-    public Long judgeExam(List<QuestionAnswerSheetDto> answerSheet);
+    public Long judgeExam(QuestionAnswerSheetDto answerSheet);
 
 }

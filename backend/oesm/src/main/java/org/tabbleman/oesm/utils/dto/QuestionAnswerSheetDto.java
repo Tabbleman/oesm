@@ -2,9 +2,13 @@ package org.tabbleman.oesm.utils.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class QuestionAnswerSheetDto {
 
-    private Long questionId;
-    private String sheetAnswer;
+    private Long userId;
+    private Long examId;
+
+    private List<MetaQuestionAnswer> questionAnswers;
 }

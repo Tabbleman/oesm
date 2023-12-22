@@ -61,7 +61,7 @@ public class ExamController {
         }
         for (Long examId : examIdList) {
             Exam exam = examService.getExamByExamId(examId);
-            if (exam != null) {
+            if (exam != null ) {
                 exams.add(exam);
             }
         }
@@ -102,8 +102,8 @@ public class ExamController {
     }
 
     @PostMapping("/judge")
-    ResponseEntity<Long> judgeStudentExam(@RequestBody QuestionAnswerSheetDto> answerSheets){
-        Long score = examService.judgeExam(answerSheets);
+    ResponseEntity<Long> judgeStudentExam(@RequestBody QuestionAnswerSheetDto answerSheetDto){
+        Long score = examService.judgeExam(answerSheetDto);
 
         return ResponseEntity.status(HttpStatus.OK).body(score);
     }

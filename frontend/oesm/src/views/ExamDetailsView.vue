@@ -1,37 +1,27 @@
 <template>
   <div>
     <NavbarComponent />
-    <h1>考试页面</h1>
-    <QuestionsComponent/>
+    <ExamDetailWrapperComponent />
   </div>
 </template>
 
 <script>
-import NavbarComponent from '../components/NavbarComponent.vue';
-import QuestionsComponent from '@/components/Exam/QuestionsComponent.vue';
-import { mapActions, mapState } from 'vuex';
-window.addEventListener('beforeunload', (e) => {
+import ExamDetailWrapperComponent from "@/components/Exam/ExamDetailWrapperComponent.vue";
+import NavbarComponent from "../components/NavbarComponent.vue";
+
+window.addEventListener("beforeunload", (e) => {
   e.preventDefault();
-  e.returnValue = '';
+  e.returnValue = "";
 });
 
 export default {
   components: {
     NavbarComponent,
-    QuestionsComponent
-  },
-  computed: {
-    ...mapState('exam', ['questions'])
-  },
-  methods: {
-    ...mapActions('exam', ['fetchQuestions'])
-  },
-  created() {
-    this.fetchQuestions(this.$route.params.examId);
-  },
+    ExamDetailWrapperComponent,
+  }
 };
 </script>
 
 <style>
-  /* 你的样式 */
+/* 你的样式 */
 </style>
