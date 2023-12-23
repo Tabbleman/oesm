@@ -65,7 +65,7 @@ export default {
   },
   computed: {
     choices() {
-      return this.question.questionChoices.split("$");
+      return this.question.questionChoices.split("$").sort(() => Math.random() - 0.5);
     },
     answerSheet() {
       // 假设您已经在 Vuex 的 state 中定义了 answerSheet
@@ -96,11 +96,11 @@ export default {
           }
         } else {
           // 如果是第一次选择，创建一个新的答案对象
-          this.UPDATE_ANSWER({ questionId: this.question.questionId, answer: choice });
+          this.UPDATE_ANSWER({ questionId: this.question.questionId, sheetAnswer: choice });
         }
       } else {
         // 单选题或判断题
-        this.UPDATE_ANSWER({ questionId: this.question.questionId, answer: choice });
+        this.UPDATE_ANSWER({ questionId: this.question.questionId, sheetAnswer: choice });
       }
     },
     

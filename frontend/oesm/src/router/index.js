@@ -6,8 +6,8 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue' // 导入LoginView组件
 import UserProfileView from '../views/UserProfileView.vue' // 导入UserProfileView组件
 import RegisterView from "@/views/RegisterView"
-import UploadQuestionView from '@/views/UploadQuestionView'
-import CreateExamView from '@/views/CreateExamView'
+import UploadQuestionView from '@/views/teacher/UploadQuestionView'
+import CreateExamView from '@/views/teacher/CreateExamView'
 const routes =
     [
       {path: '/', name: 'home', component: HomeView},

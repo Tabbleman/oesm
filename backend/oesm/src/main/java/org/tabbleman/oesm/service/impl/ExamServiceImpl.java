@@ -37,6 +37,45 @@ public class ExamServiceImpl implements ExamService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Override
+    public List<Exam> getUserFinishedExams(UserExamsQo userExamsQo) {
+        List<ExamRecord> allExamRecords = examRecordRepository.findAllByUserId(userExamsQo.getUserId());
+        List<Exam> exams = new ArrayList<>();
+        for(ExamRecord er: allExamRecords){
+            if(er.getExamStatus() == 0){
+                continue;
+            }
+            Exam ex = examRepository.findExamByExamId(er.getExamId());
+            exams.add(ex);
+        }
+        return exams;
+    }
+
+    @Override
+    public List<Exam> getUserAllExams(UserExamsQo userExamsQo) {
+        List<ExamRecord> allExamRecords = examRecordRepository.findAllByUserId(userExamsQo.getUserId());
+        List<Exam> exams = new ArrayList<>();
+        for(ExamRecord er: allExamRecords){
+            Exam ex = examRepository.findExamByExamId(er.getExamId());
+            exams.add(ex);
+        }
+        return exams;
+    }
+
+    @Override
+    public List<Exam> getUserUnfinishedExams(UserExamsQo userExamsQo) {
+        List<ExamRecord> allExamRecords = examRecordRepository.findAllByUserId(userExamsQo.getUserId());
+        List<Exam> exams = new ArrayList<>();
+        for(ExamRecord er: allExamRecords){
+            if(er.getExamStatus() == 1){
+                continue;
+            }
+            Exam ex = examRepository.findExamByExamId(er.getExamId());
+            exams.add(ex);
+        }
+        return exams;    }
+
     /**
      * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
      * api for user
@@ -160,9 +199,9 @@ public class ExamServiceImpl implements ExamService {
         for(MetaQuestionAnswer answer: metaQuestionAnswers){
             Long questionId = answer.getQuestionId();
             String questionAnswer = answer.getSheetAnswer();
-
+            log.info(questionAnswer);
             Question question = questionRepository.getQuestionByQuestionId(questionId);
-            if(question == null || questionAnswer.isBlank()){
+            if(question == null || questionAnswer == null){
                 continue;
             }
             if(question.getQuestionType().equalsIgnoreCase("multiple")){
@@ -197,7 +236,9 @@ public class ExamServiceImpl implements ExamService {
 
             }
         }
+        log.info(score.toString());
         // label the examRecord finished.
+
         examRecordRepository.updateExamRecordByExamId(examId, userId, 1L);
         return score;
     }

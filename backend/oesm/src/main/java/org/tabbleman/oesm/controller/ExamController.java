@@ -50,24 +50,26 @@ public class ExamController {
      * @param userExamsQo
      * @return
      */
-    @PostMapping("/user/exams")
-    ResponseEntity<List<Exam>> getUserExams(@RequestBody UserExamsQo userExamsQo) {
-        List<Long> examIdList = examService.getUserExamsId(userExamsQo);
-        List<Exam> exams = new ArrayList<>();
-        logger.info("user id info:" + userExamsQo.getUserId() );
-        if (examIdList.isEmpty()) {
-            logger.info("Empty info");
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(exams);
-        }
-        for (Long examId : examIdList) {
-            Exam exam = examService.getExamByExamId(examId);
-            if (exam != null ) {
-                exams.add(exam);
-            }
-        }
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(exams);
+    @PostMapping("/user/exams/unfinished")
+    ResponseEntity<List<Exam>> getUserUnfinishedExams(@RequestBody UserExamsQo userExamsQo) {
+        List<Exam> unfinishedExams = examService.getUserUnfinishedExams(userExamsQo);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(unfinishedExams);
 
     }
+    @PostMapping("/user/exams/finished")
+    ResponseEntity<List<Exam>> getUserFinishedExams(@RequestBody UserExamsQo userExamsQo) {
+        List<Exam> finishedExams = examService.getUserFinishedExams(userExamsQo);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(finishedExams);
+
+    }
+    @PostMapping("/user/exams/all")
+    ResponseEntity<List<Exam>> getUserAllExams(@RequestBody UserExamsQo userExamsQo) {
+        List<Exam> allExams = examService.getUserAllExams(userExamsQo);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(allExams);
+
+    }
+
+
     @GetMapping(path = "/{examId}")
     ResponseEntity<List<Question>> generateQuestionsByExamId(@PathVariable Long examId){
         List<Question> questions = new ArrayList<>();
@@ -104,7 +106,6 @@ public class ExamController {
     @PostMapping("/judge")
     ResponseEntity<Long> judgeStudentExam(@RequestBody QuestionAnswerSheetDto answerSheetDto){
         Long score = examService.judgeExam(answerSheetDto);
-
         return ResponseEntity.status(HttpStatus.OK).body(score);
     }
 

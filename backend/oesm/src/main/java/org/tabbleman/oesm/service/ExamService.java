@@ -16,6 +16,10 @@ public interface ExamService {
     // for student:
     public List<Long> getUserExamsId(UserExamsQo userExamsQo);
 
+    public List<Exam> getUserFinishedExams(UserExamsQo userExamsQo);
+    public List<Exam> getUserAllExams(UserExamsQo userExamsQo);
+    public List<Exam> getUserUnfinishedExams(UserExamsQo userExamsQo);
+
     public Exam getExamByExamId(Long examId);
 
     public List<Question> generateQuestionsByExamId(Long examId);

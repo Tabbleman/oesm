@@ -1,6 +1,5 @@
 // store/modules/user.js
 import api from '@/service/axiosConfig'; // 引入配置的 Axios 实例
-
 export default {
   namespaced: true,
   state: {

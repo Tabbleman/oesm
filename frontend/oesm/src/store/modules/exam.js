@@ -11,21 +11,25 @@ export default {
       'examQuestionCount': null,
       'examStartTimeStamp': null,
       'examEndTimeStamp': null
-    }, 
-    answerSheet:{
-      userId: null, 
-      examId: null, 
+    },
+    answerSheet: {
+      userId: null,
+      examId: null,
       questionAnswers: [
-        
+
       ]
     }
   }),
   mutations: {
+    SET_EXAM_CONTEXT(state, {userId, examId}) {
+      state.answerSheet.userId = userId;
+      state.answerSheet.examId = examId;
+    },
 
     SET_EXAMS(state, exams) {
       state.exams = exams;
     },
-    
+
     SET_QUESTIONS(state, questions) {
       state.questions = questions;
     },
@@ -35,25 +39,32 @@ export default {
     UPDATE_EXAM_CONFIG(state, {fieldName, value}) {
       state.examConfig[fieldName] = value;
     },
-      
-    UPDATE_ANSWER(state, { questionId, answer }) {
+
+    UPDATE_ANSWER(state, {questionId, sheetAnswer}) {
       // 查找或创建答案对象
-      let answerEntry = state.answerSheet.questionAnswers.find(qa => qa.questionId === questionId);
+      let answerEntry = state.answerSheet.questionAnswers.find(
+          qa => qa.questionId === questionId);
       if (answerEntry) {
         // 更新答案
-        answerEntry.answer = answer;
+        answerEntry.sheetAnswer = sheetAnswer;
       } else {
         // 添加新的答案
-        state.answerSheet.questionAnswers.push({ questionId, answer });
+        state.answerSheet.questionAnswers.push({questionId, sheetAnswer});
       }
     },
+    RESET_ANSWER_SHEET(state) {
+      state.answerSheet = {userId: null, examId: null, questionAnswers: []};
+    },
   },
-  
+
   actions: {
+    async setExamContext({commit}, {userId, examId}) {
+      commit('SET_EXAM_CONTEXT', {userId, examId});
+    },
     async fetchExams({commit, rootState}) {
       // 模拟获取考试信息，实际中应替换为API请求
       const userId = rootState.user.userInfo.userId;
-      api.post('/api/exam/user/exams', {'userId': userId})
+      api.post('/api/exam/user/exams/unfinished', {'userId': userId})
           .then(response => {
             commit('SET_EXAMS', response.data);  // 假设响应数据就是考试信息
           })
@@ -109,10 +120,24 @@ export default {
             console.error('Error submitting exam:', error);
             alert('Failed to create exam!')
           });
-    }, 
-    
-    // async submitExamAnswerSheet({commit}, answerSheet){
-    // }
+    },
+
+    async submitExamAnswerSheet({commit}, answerSheet) {
+      try {
+        const response = await api.post('/api/exam/judge', {
+          examId: answerSheet.examId,
+          userId: answerSheet.userId,
+          questionAnswers: answerSheet.questionAnswers
+        });
+        // 你可以在这里处理响应，例如更新状态或显示消息
+        console.log(response.data);
+        console.log(answerSheet);
+        commit();  // 如有需要，调用相应的 mutation
+        alert('提交！答案已成功');
+      } catch (error) {
+        // 这里可以处理错误
+      }
+    }
 
   }
 };

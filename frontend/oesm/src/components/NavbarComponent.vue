@@ -43,6 +43,17 @@
             </ul>
           </li>
           
+          <li class="nav-item dropdown" v-if="userInfo && userInfo.userRoleLevel === 1">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownExamLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              学生管理
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownExamLink">
+              <li><router-link class="dropdown-item" to="/class-grade">成绩单</router-link></li>
+              <li><router-link class="dropdown-item" to="/import-info">导入学生信息</router-link></li>
+              <!-- 其他子项... -->
+            </ul>
+          </li>
+
           <li class="nav-item" v-if="userInfo && userInfo.userRoleLevel === 0">
             <router-link class="nav-link" to="/admin">Admin Here!</router-link>
           </li>

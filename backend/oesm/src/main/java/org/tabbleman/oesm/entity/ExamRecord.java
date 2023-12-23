@@ -19,5 +19,6 @@ public class ExamRecord {
     private Long classId;
     private Long examId;
     private Long userId;
+    private Long examScore;
 
 }
