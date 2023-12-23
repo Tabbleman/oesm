@@ -21,14 +21,26 @@
               >用户资料</router-link
             >
           </li>
-          <!-- 其他导航项... -->
-          
-          <li class="nav-item" v-if="userInfo && userInfo.userRoleLevel === 1">
-            <router-link class="nav-link" to="/upload">上传题目</router-link>
+
+          <li class="nav-item dropdown" v-if="userInfo && userInfo.userRoleLevel === 1">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              问题管理
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><router-link class="dropdown-item" to="/upload">上传题目</router-link></li>
+              <!-- 其他子项... -->
+            </ul>
           </li>
-          
-          <li class="nav-item" v-if="userInfo && userInfo.userRoleLevel === 1">
-            <router-link class="nav-link" to="/create-exam">发布考试</router-link>
+
+          <!-- 考试管理下拉菜单 -->
+          <li class="nav-item dropdown" v-if="userInfo && userInfo.userRoleLevel === 1">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownExamLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              考试管理
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownExamLink">
+              <li><router-link class="dropdown-item" to="/create-exam">发布考试</router-link></li>
+              <!-- 其他子项... -->
+            </ul>
           </li>
           
           <li class="nav-item" v-if="userInfo && userInfo.userRoleLevel === 0">
@@ -68,5 +80,24 @@ export default {
 </script>
 
 <style scoped>
-/* 添加一些自定义样式（如果需要） */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar-nav .dropdown-menu {
+  display: none; /* 初始状态设置为隐藏 */
+  animation: fadeIn 0.5s ease forwards; /* 应用淡入动画 */
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block; /* 鼠标悬停时显示下拉菜单 */
+}
+
 </style>

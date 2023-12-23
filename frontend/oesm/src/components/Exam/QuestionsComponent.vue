@@ -6,6 +6,7 @@
           <QuestionComponent :question="question"/>
         </div>
       </div>
+      <button type="button" class="btn btn-primary" @click="handleSubmit">Submit</button>
     </div>
   </div>
 </template>

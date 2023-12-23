@@ -11,6 +11,13 @@ export default {
       'examQuestionCount': null,
       'examStartTimeStamp': null,
       'examEndTimeStamp': null
+    }, 
+    answerSheet:{
+      userId: null, 
+      examId: null, 
+      questionAnswers: [
+        
+      ]
     }
   }),
   mutations: {
@@ -27,6 +34,18 @@ export default {
     },
     UPDATE_EXAM_CONFIG(state, {fieldName, value}) {
       state.examConfig[fieldName] = value;
+    },
+      
+    UPDATE_ANSWER(state, { questionId, answer }) {
+      // 查找或创建答案对象
+      let answerEntry = state.answerSheet.questionAnswers.find(qa => qa.questionId === questionId);
+      if (answerEntry) {
+        // 更新答案
+        answerEntry.answer = answer;
+      } else {
+        // 添加新的答案
+        state.answerSheet.questionAnswers.push({ questionId, answer });
+      }
     },
   },
   
@@ -90,7 +109,10 @@ export default {
             console.error('Error submitting exam:', error);
             alert('Failed to create exam!')
           });
-    }
+    }, 
+    
+    // async submitExamAnswerSheet({commit}, answerSheet){
+    // }
 
   }
 };

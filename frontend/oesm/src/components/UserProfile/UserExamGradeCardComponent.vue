@@ -3,7 +3,6 @@
     <div class="card-body">
       <h5 class="card-title">{{ exam.name }}</h5>
       <p class="card-text">Score: {{ exam.score }}</p>
-      <!-- 其他考试信息 -->
     </div>
   </div>
 </template>
@@ -20,5 +19,5 @@ export default {
 </script>
 
 <style scoped>
-/* 样式调整 */
+
 </style>

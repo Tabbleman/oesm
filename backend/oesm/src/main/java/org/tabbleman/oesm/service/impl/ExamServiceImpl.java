@@ -156,29 +156,37 @@ public class ExamServiceImpl implements ExamService {
         Long userId = answerSheet.getUserId();
         Long examId = answerSheet.getExamId();
         List<MetaQuestionAnswer> metaQuestionAnswers = answerSheet.getQuestionAnswers();
-
+        // get score
         for(MetaQuestionAnswer answer: metaQuestionAnswers){
             Long questionId = answer.getQuestionId();
             String questionAnswer = answer.getSheetAnswer();
 
             Question question = questionRepository.getQuestionByQuestionId(questionId);
+            if(question == null || questionAnswer.isBlank()){
+                continue;
+            }
             if(question.getQuestionType().equalsIgnoreCase("multiple")){
+                boolean multipleCorrect = true;
                 List<String> correctAnswers = List.of(question.getQuestionAnswer().split("$"));
-                List<String> sheetAnswers = List.of(question.getQuestionAnswer().split("$"));
+                List<String> sheetAnswers = List.of(answer.getSheetAnswer().split("$"));
                 if(correctAnswers.size() != sheetAnswers.size()){
                     continue;
                 }
-                Collections.sort(correctAnswers);
-                Collections.sort(sheetAnswers);
-                boolean multipleCorrect = true;
+                log.info("correct size:" + correctAnswers.size() + "sheet answer size: " + sheetAnswers.size());
+                if (sheetAnswers.size() > 1 ) {
+                    Collections.sort(correctAnswers);
+                    Collections.sort(sheetAnswers);
+                }
+
                 for(int i = 0; i < correctAnswers.size(); i ++){
+                    log.info("test answer: ");
                     if(! correctAnswers.get(i).equalsIgnoreCase(sheetAnswers.get(i))){
                         multipleCorrect = false;
                         break;
                     }
                 }
                 if(multipleCorrect){
-                    score += 1;
+                    score += 1L;
                 }
 
             }
@@ -186,8 +194,11 @@ public class ExamServiceImpl implements ExamService {
                 if (questionAnswer.equalsIgnoreCase(question.getQuestionAnswer())){
                     score += 1L;
                 }
+
             }
         }
+        // label the examRecord finished.
+        examRecordRepository.updateExamRecordByExamId(examId, userId, 1L);
         return score;
     }
 }

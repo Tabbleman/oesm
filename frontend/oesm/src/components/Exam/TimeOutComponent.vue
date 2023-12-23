@@ -48,7 +48,7 @@ export default {
 <style>
 .timer-container {
   position: fixed;
-  top: 20px;  /* 距离顶部的距离 */
+  bottom: 20px;  /* 距离顶部的距离 */
   right: 20px; /* 距离右侧的距离 */
   background-color: white; /* 背景颜色 */
   padding: 10px; /* 内边距 */

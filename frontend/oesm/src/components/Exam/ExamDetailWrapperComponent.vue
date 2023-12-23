@@ -34,6 +34,6 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
   /* 你的样式 */
 </style>
