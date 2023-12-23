@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.tabbleman.oesm.entity.User;
 import org.tabbleman.oesm.service.UserService;
 import org.tabbleman.oesm.utils.dto.LoginDto;
@@ -67,4 +68,12 @@ public class UserController {
             return null;
         }
     }
+
+    @PostMapping("/userInfo/upload")
+    ResponseEntity<String > uploadQuestion(@RequestParam("file") MultipartFile multipartFile){
+        userService.uploadUserInfo(multipartFile);
+
+        return ResponseEntity.status(HttpStatus.OK).body("ok");
+    }
+
 }

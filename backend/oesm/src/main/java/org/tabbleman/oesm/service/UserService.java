@@ -1,5 +1,6 @@
 package org.tabbleman.oesm.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import org.tabbleman.oesm.entity.User;
 import org.tabbleman.oesm.repository.UserRepository;
 import org.tabbleman.oesm.utils.dto.LoginDto;
@@ -14,5 +15,8 @@ public interface UserService {
     public User getUserByName(String userName);
 
     public List<User> getAllUsers();
+
+    public String uploadUserInfo(MultipartFile questionCsv);
+
 
 }
