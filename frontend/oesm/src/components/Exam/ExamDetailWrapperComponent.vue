@@ -1,9 +1,8 @@
 <template>
   <div>
     <h1>考试页面</h1>
-    <TimeOutComponent/>
     <QuestionsComponent/>
-
+    <TimeOutComponent/>
   </div>
 </template>
 
@@ -35,5 +34,5 @@ export default {
 </script>
 
 <style scoped>
-  /* 你的样式 */
+  
 </style>

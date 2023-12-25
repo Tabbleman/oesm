@@ -17,7 +17,7 @@ public interface ExamRecordRepository extends JpaRepository<ExamRecord, String> 
 //    public void deleteAllByExamId(Long examId);
     @Modifying
     @Transactional
-    @Query("update ExamRecord er set er.examStatus = :status where er.examId = :examId and er.userId = :userId")
-    public void updateExamRecordByExamId(Long examId, Long userId, Long status);
+    @Query("update ExamRecord er set er.examStatus = :status, er.examScore = :score where er.examId = :examId and er.userId = :userId")
+    public void updateExamRecordByExamId(Long examId, Long userId, Long status, Long score);
 
 }

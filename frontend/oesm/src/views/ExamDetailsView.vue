@@ -7,7 +7,7 @@
 
 <script>
 import ExamDetailWrapperComponent from "@/components/Exam/ExamDetailWrapperComponent.vue";
-import NavbarComponent from "../components/NavbarComponent.vue";
+import NavbarComponent from "@/components/NavbarComponent.vue";
 
 window.addEventListener("beforeunload", (e) => {
   e.preventDefault();

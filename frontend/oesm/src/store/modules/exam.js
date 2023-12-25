@@ -16,9 +16,10 @@ export default {
       userId: null,
       examId: null,
       questionAnswers: [
-
       ]
-    }
+    },
+    examRecord: [],
+    currentExam: null
   }),
   mutations: {
     SET_EXAM_CONTEXT(state, {userId, examId}) {

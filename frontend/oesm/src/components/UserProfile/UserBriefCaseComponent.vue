@@ -3,7 +3,7 @@
     <div class="card-body">
       <h5 class="card-title">Id:  {{ userInfo.userId }}</h5>
       <p class="card-text">Name: {{ userInfo.userName }}</p>
-      
+      <p class="card-text">Mail: {{ userInfo.userEmail }}</p>
     </div>
   </div>
 </template>
@@ -12,7 +12,7 @@
 import {mapState} from 'vuex'
 
 export default {
-  // 逻辑部分
+  
   computed: {
     ...mapState({
       userInfo: state => state.user.userInfo

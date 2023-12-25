@@ -97,7 +97,7 @@ public class ExamController {
      * @param examConfigDto
      * @return
      */
-    @PostMapping("/create")
+    @PostMapping("/create"  )
     ResponseEntity<Exam> createExam(@RequestBody ExamConfigDto examConfigDto){
         Exam exam = examService.createExam(examConfigDto);
         return ResponseEntity.status(HttpStatus.OK).body(exam);
@@ -109,5 +109,7 @@ public class ExamController {
         return ResponseEntity.status(HttpStatus.OK).body(score);
     }
 
+//    @PostMapping("/user/history")
+//    ResponseEntity<>
 
 }

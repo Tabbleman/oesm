@@ -24,10 +24,21 @@ export default {
           });
       });
     },
-    logout({commit}){
-      commit('SET_USER_INFO', null); // 清空用户信息
-    }
-    // 其他 actions...
+    async logout({commit}){
+
+      commit('SET_USER_INFO', null); 
+    },
+    async uploadUserInfo({commit}, fileCsv) {
+      try {
+        const formData = new FormData();
+        formData.append('file', fileCsv);
+        const response = api.post('/api/user/userInfo/upload', formData)
+        console.log(response)
+        commit();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
   }
-  // 其他 state, getters...
 };

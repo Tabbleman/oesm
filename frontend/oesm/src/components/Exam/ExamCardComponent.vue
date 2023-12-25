@@ -20,7 +20,9 @@ export default {
   methods: {
     startExam() {
       const examId = this.exam.examId;
-      const userId = this.$store.state.user.userInfo.userId; // 假设你的用户 ID 存储在 user 模块的 userInfo 中
+      const userId = this.$store.state.user.userInfo.userId; 
+      
+      localStorage.setItem("currentExamEndTime", this.exam.examEndTimeStamp);
       this.$store.dispatch('exam/setExamContext', { userId, examId });
     }
   }

@@ -42,8 +42,8 @@ public class ExamServiceImpl implements ExamService {
     public List<Exam> getUserFinishedExams(UserExamsQo userExamsQo) {
         List<ExamRecord> allExamRecords = examRecordRepository.findAllByUserId(userExamsQo.getUserId());
         List<Exam> exams = new ArrayList<>();
-        for(ExamRecord er: allExamRecords){
-            if(er.getExamStatus() == 0){
+        for (ExamRecord er : allExamRecords) {
+            if (er.getExamStatus() == 0) {
                 continue;
             }
             Exam ex = examRepository.findExamByExamId(er.getExamId());
@@ -56,7 +56,7 @@ public class ExamServiceImpl implements ExamService {
     public List<Exam> getUserAllExams(UserExamsQo userExamsQo) {
         List<ExamRecord> allExamRecords = examRecordRepository.findAllByUserId(userExamsQo.getUserId());
         List<Exam> exams = new ArrayList<>();
-        for(ExamRecord er: allExamRecords){
+        for (ExamRecord er : allExamRecords) {
             Exam ex = examRepository.findExamByExamId(er.getExamId());
             exams.add(ex);
         }
@@ -67,19 +67,22 @@ public class ExamServiceImpl implements ExamService {
     public List<Exam> getUserUnfinishedExams(UserExamsQo userExamsQo) {
         List<ExamRecord> allExamRecords = examRecordRepository.findAllByUserId(userExamsQo.getUserId());
         List<Exam> exams = new ArrayList<>();
-        for(ExamRecord er: allExamRecords){
-            if(er.getExamStatus() == 1){
+        for (ExamRecord er : allExamRecords) {
+            if (er.getExamStatus() == 1) {
                 continue;
             }
             Exam ex = examRepository.findExamByExamId(er.getExamId());
+            log.info(ex.toString());
             exams.add(ex);
         }
-        return exams;    }
+        return exams;
+    }
 
     /**
      * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
      * api for user
      * todo filter finished exam and unfinished exam.
+     *
      * @param userExamsQo
      * @return
      */
@@ -88,13 +91,13 @@ public class ExamServiceImpl implements ExamService {
         List<ExamRecord> examRecords = new ArrayList<>();
 
         List<Long> examIds = new ArrayList<>();
-        try{
+        try {
             Long userId = userExamsQo.getUserId();
             examRecords = examRecordRepository.findAllByUserId(userExamsQo.getUserId());
             examIds = examRecords.stream()
                     .map(ExamRecord::getExamId)
                     .collect(Collectors.toList());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -108,7 +111,7 @@ public class ExamServiceImpl implements ExamService {
         Exam exam = examRepository.findExamByExamId(examId);
         try {
             questions = questionRepository.generateQuestions(exam.getExamQuestionCount());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -117,6 +120,7 @@ public class ExamServiceImpl implements ExamService {
 
     /**
      * this function is for single exam detail view in front end
+     *
      * @param examId
      * @return
      */
@@ -125,7 +129,7 @@ public class ExamServiceImpl implements ExamService {
         Exam exam = new Exam();
         try {
             exam = examRepository.findExamByExamId(examId);
-        }catch (Exception e){
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
@@ -158,31 +162,31 @@ public class ExamServiceImpl implements ExamService {
         List<User> students = new ArrayList<>();
         // filter student
 
-        for(User user: allUsers){
-            if(user.getUserRoleLevel() == 2){
+        for (User user : allUsers) {
+            if (user.getUserRoleLevel() == 2) {
                 students.add(user);
             }
         }
-        if(students.size() == 0){
+        if (students.size() == 0) {
             log.info(examName);
             return exam;
         }
 
-        try{
+        try {
             // save exam infomation
             Exam savedExam = examRepository.save(exam);
             log.info("students: " + students.size());
-            for(User student: students){
+            for (User student : students) {
                 ExamRecord record = new ExamRecord();
                 record.setExamId(savedExam.getExamId());
                 record.setUserId(student.getUserId());
-
+                record.setClassId(classId);
                 record.setExamStatus(0L);
                 examRecordRepository.save(record);
             }
             log.info("create exam successfully!!!!  !");
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return exam;
@@ -196,50 +200,49 @@ public class ExamServiceImpl implements ExamService {
         Long examId = answerSheet.getExamId();
         List<MetaQuestionAnswer> metaQuestionAnswers = answerSheet.getQuestionAnswers();
         // get score
-        for(MetaQuestionAnswer answer: metaQuestionAnswers){
+        for (MetaQuestionAnswer answer : metaQuestionAnswers) {
             Long questionId = answer.getQuestionId();
             String questionAnswer = answer.getSheetAnswer();
             log.info(questionAnswer);
             Question question = questionRepository.getQuestionByQuestionId(questionId);
-            if(question == null || questionAnswer == null){
+            if (question == null || questionAnswer == null) {
                 continue;
             }
-            if(question.getQuestionType().equalsIgnoreCase("multiple")){
+            if (question.getQuestionType().equalsIgnoreCase("multiple")) {
                 boolean multipleCorrect = true;
                 List<String> correctAnswers = List.of(question.getQuestionAnswer().split("$"));
                 List<String> sheetAnswers = List.of(answer.getSheetAnswer().split("$"));
-                if(correctAnswers.size() != sheetAnswers.size()){
+                if (correctAnswers.size() != sheetAnswers.size()) {
                     continue;
                 }
                 log.info("correct size:" + correctAnswers.size() + "sheet answer size: " + sheetAnswers.size());
-                if (sheetAnswers.size() > 1 ) {
+                if (sheetAnswers.size() > 1) {
                     Collections.sort(correctAnswers);
                     Collections.sort(sheetAnswers);
                 }
 
-                for(int i = 0; i < correctAnswers.size(); i ++){
+                for (int i = 0; i < correctAnswers.size(); i++) {
                     log.info("test answer: ");
-                    if(! correctAnswers.get(i).equalsIgnoreCase(sheetAnswers.get(i))){
+                    if (!correctAnswers.get(i).equalsIgnoreCase(sheetAnswers.get(i))) {
                         multipleCorrect = false;
                         break;
                     }
                 }
-                if(multipleCorrect){
+                if (multipleCorrect) {
                     score += 1L;
                 }
 
-            }
-            else {
-                if (questionAnswer.equalsIgnoreCase(question.getQuestionAnswer())){
+            } else {
+                if (questionAnswer.equalsIgnoreCase(question.getQuestionAnswer())) {
                     score += 1L;
                 }
 
             }
         }
-        log.info(score.toString());
-        // label the examRecord finished.
+        log.info("Judge called");
 
-        examRecordRepository.updateExamRecordByExamId(examId, userId, 1L);
+        // label the examRecord finished.
+        examRecordRepository.updateExamRecordByExamId(examId, userId, 1L, score);
         return score;
     }
 }

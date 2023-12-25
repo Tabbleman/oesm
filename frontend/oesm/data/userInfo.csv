@@ -1,0 +1,8 @@
+userName,userClassId,userRealName,userPassword,userRoleLevel,userEmail
+test,1,test,test,2,test@example.com
+user1,1,User One,password1,2,user1@example.com
+user2,1,User Two,password2,2,user2@example.com
+user3,1,User Three,password3,2,user3@example.com
+user4,2,User Four,password4,2,user4@example.com
+user5,2,User Five,password5,2,user5@example.com
+user6,2,User Six,password6,2,user6@example.com

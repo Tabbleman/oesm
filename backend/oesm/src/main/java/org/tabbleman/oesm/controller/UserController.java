@@ -1,4 +1,5 @@
 package org.tabbleman.oesm.controller;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +16,7 @@ import org.tabbleman.oesm.utils.dto.RegisterDto;
 import java.util.List;
 
 @CrossOrigin
+@Slf4j
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -40,6 +42,7 @@ public class UserController {
     public ResponseEntity<User> login(@RequestBody LoginDto loginDto) {
         try {
             User responseUser = userService.login(loginDto);
+            log.info("Login ...");
             if(responseUser.getUserId() != null) {
                 return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseUser);
             }else {
@@ -71,9 +74,8 @@ public class UserController {
 
     @PostMapping("/userInfo/upload")
     ResponseEntity<String > uploadQuestion(@RequestParam("file") MultipartFile multipartFile){
-        userService.uploadUserInfo(multipartFile);
-
-        return ResponseEntity.status(HttpStatus.OK).body("ok");
+        String status = userService.uploadUserInfo(multipartFile);
+        return ResponseEntity.status(HttpStatus.OK).body(status);
     }
 
 }

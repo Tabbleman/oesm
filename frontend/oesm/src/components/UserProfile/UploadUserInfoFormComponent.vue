@@ -23,7 +23,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions('user', ['uploadQuestion']),
+    ...mapActions('user', ['uploadUserInfo']),
     
     handleFileUpload(event) {
       this.file = event.target.files[0];
@@ -32,7 +32,7 @@ export default {
     submitFile() {
       if (this.file) {
         // 调用 Vuex action 来上传文件
-        this.uploadQuestion(this.file)
+        this.uploadUserInfo(this.file)
           .then(() => {
             // 处理上传成功，可能是显示消息或跳转到其他视图
             alert('File uploaded successfully');

@@ -33,7 +33,7 @@ export default {
   methods: {
     ...mapActions("exam", ["submitExamAnswerSheet"]),
     handleSubmit() {
-      // 假设你的用户 ID 和考试 ID 已经在 Vuex store 中设置好了
+      // 用户 ID 和考试 ID 已经在 Vuex store 中设置好了
       this.submitExamAnswerSheet(this.$store.state.exam.answerSheet)
         .then(() => {
           alert("答案提交成功！");

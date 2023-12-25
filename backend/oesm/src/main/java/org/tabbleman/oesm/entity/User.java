@@ -20,10 +20,18 @@ public class User {
     private String userName;
 //    for teacher, this section default value is null.
     private Long userClassId = null;
-//    private String userRealName;
+    private String userRealName;
 
     private String userPassword;
     private Long userRoleLevel = 2L;
-//    private String userEmail;
+    private String userEmail;
 
+    public User(String userName, Long userClassId, String userRealName, String userPassword, Long userRoleLevel, String userEmail) {
+        this.userName = userName;
+        this.userClassId = userClassId;
+        this.userRealName = userRealName;
+        this.userPassword = userPassword;
+        this.userRoleLevel = userRoleLevel;
+        this.userEmail = userEmail;
+    }
 }

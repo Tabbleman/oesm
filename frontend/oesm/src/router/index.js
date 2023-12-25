@@ -8,6 +8,8 @@ import UserProfileView from '../views/UserProfileView.vue' // 导入UserProfileV
 import RegisterView from "@/views/RegisterView"
 import UploadQuestionView from '@/views/teacher/UploadQuestionView'
 import CreateExamView from '@/views/teacher/CreateExamView'
+import UploadUserInfoView from '@/views/teacher/UploadUserInfoView'
+
 const routes =
     [
       {path: '/', name: 'home', component: HomeView},
@@ -20,7 +22,9 @@ const routes =
       {path: '/user-profile', name: 'user-profile', component: UserProfileView},
       {path: '/exam/:examId', name: 'exam-details', component: ExamDetailsView},
       {path: '/upload', name: 'upload-question', component: UploadQuestionView},
-      {path: '/create-exam', name: 'create-exam', component: CreateExamView}
+      {path: '/create-exam', name: 'create-exam', component: CreateExamView},
+      {path: '/import-info', name: 'import-info', component: UploadUserInfoView}
+      
     ]
 
     const router =

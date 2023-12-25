@@ -1,9 +1,11 @@
 package org.tabbleman.oesm.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.tabbleman.oesm.entity.Question;
@@ -20,13 +22,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
     /**
      * register user, todo consider if the user exists.
-     * @param user
+     * @param registerDto
      * @return
      * 1-100(include)   OK
      * 101-200          User Exists // todo
@@ -63,16 +66,12 @@ public class UserServiceImpl implements UserService {
 
         String dbPassword = userRepository.findByUserName(userName).getUserPassword();
         User responseUser = new User();
-
+        log.info("call login");
         if(dbPassword != null){
             if(dbPassword.equals(userPassword)){
                 // login successfully
-                Long userId = userRepository.findByUserName(userName).getUserId();
-                Long userLevel = userRepository.findByUserName(userName).getUserRoleLevel();
-                responseUser.setUserName(userName);
-                responseUser.setUserId(userId);
-                responseUser.setUserRoleLevel(userLevel);
-
+                User user = userRepository.findByUserName(userName);
+                responseUser = user;
                 return responseUser;
             }
             return responseUser;
@@ -112,6 +111,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String uploadUserInfo(MultipartFile questionCsv) {
+
         try{
             InputStream is = questionCsv.getInputStream ();
             BufferedReader buf = new BufferedReader(new InputStreamReader(is));
@@ -120,9 +120,16 @@ public class UserServiceImpl implements UserService {
             CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(buf);
 
             for(CSVRecord record : csvParser){
+                String userName = record.get("userName");
+                Long userClassId = Long.parseLong(record.get("userClassId"));
+                String userRealName = record.get("userRealName");
+                String userPassword = record.get("userPassword");
+                Long userRoleLevel = Long.parseLong(record.get("userRoleLevel"));
+                String userEmail = record.get("userEmail");
+                User user = new User(userName, userClassId, userRealName, userPassword, userRoleLevel, userEmail);
 
-                User user = new User();
                 userRepository.save(user);
+                log.info("User saved successfully!");
             }
             return "OK";
         }catch (Exception e){

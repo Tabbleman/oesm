@@ -81,29 +81,35 @@ export default {
         let selectedOptions = this.answerSheet.questionAnswers.find(
           (qa) => qa.questionId === this.question.questionId
         );
-        
-        if (selectedOptions) {
-          if (event.target.checked) {
-            // 如果复选框被选中，添加答案
-            selectedOptions.answer = selectedOptions.answer
-              ? selectedOptions.answer + "$" + choice
-              : choice;
-          } else {
-            // 如果复选框被取消选中，移除答案
-            let choicesArray = selectedOptions.answer.split("$");
-            choicesArray = choicesArray.filter((c) => c !== choice);
-            selectedOptions.answer = choicesArray.join("$");
-          }
-        } else {
-          // 如果是第一次选择，创建一个新的答案对象
-          this.UPDATE_ANSWER({ questionId: this.question.questionId, sheetAnswer: choice });
+
+        // 如果是第一次选择或者之前没有答案，初始化答案
+        if (!selectedOptions) {
+          selectedOptions = { questionId: this.question.questionId, answer: "" };
+          this.answerSheet.questionAnswers.push(selectedOptions);
         }
+
+        if (event.target.checked) {
+          // 如果复选框被选中，添加答案
+          selectedOptions.answer = selectedOptions.answer
+            ? selectedOptions.answer + "$" + choice
+            : choice;
+        } else {
+          // 如果复选框被取消选中，移除答案
+          let choicesArray = selectedOptions.answer.split("$");
+          choicesArray = choicesArray.filter((c) => c !== choice);
+          selectedOptions.answer = choicesArray.join("$");
+        }
+
+        // 更新 Vuex 状态
+        this.UPDATE_ANSWER({
+          questionId: this.question.questionId,
+          sheetAnswer: selectedOptions.answer,
+        });
       } else {
         // 单选题或判断题
         this.UPDATE_ANSWER({ questionId: this.question.questionId, sheetAnswer: choice });
       }
     },
-    
   },
 };
 </script>
