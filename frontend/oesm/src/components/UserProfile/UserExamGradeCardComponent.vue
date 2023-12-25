@@ -1,8 +1,8 @@
 <template>
   <div class="card mb-2">
     <div class="card-body">
-      <h5 class="card-title">{{ exam.name }}</h5>
-      <p class="card-text">Score: {{ exam.score }}</p>
+      <h5 class="card-title">Examname: {{ exam.examName }}</h5>
+      <p class="card-text">Score: {{ exam.userScore }}</p>
     </div>
   </div>
 </template>

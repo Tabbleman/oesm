@@ -23,4 +23,5 @@
 hs_err_pid*
 replay_pid*
 
-frontend/oesm/node_module/*
+./frontend/oesm/node_module/*
+./node_module/*

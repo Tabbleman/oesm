@@ -2,7 +2,7 @@
   <div>
     <!-- 循环遍历考试成绩列表 -->
     <UserExamGradeCardComponent 
-      v-for="exam in exams" 
+      v-for="exam in examRecords" 
       :key="exam.id" 
       :exam="exam" 
     />
@@ -11,16 +11,17 @@
 
 <script>
 import UserExamGradeCardComponent from '@/components/UserProfile/UserExamGradeCardComponent.vue';
+import { mapState } from 'vuex';
 
 export default {
   components: {
     UserExamGradeCardComponent
   },
-  props: {
-    exams: {
-      type: Array,
-      required: true
-    }
+  computed: {
+    ...mapState('exam', ['examRecords'])
+  },
+  mounted() {
+    this.$store.dispatch('exam/fetchExamRecords');
   }
 };
 </script>

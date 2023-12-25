@@ -16,6 +16,7 @@ import org.tabbleman.oesm.utils.dto.ExamConfigDto;
 import org.tabbleman.oesm.utils.dto.MetaQuestionAnswer;
 import org.tabbleman.oesm.utils.dto.QuestionAnswerSheetDto;
 import org.tabbleman.oesm.utils.qo.UserExamsQo;
+import org.tabbleman.oesm.utils.vo.ExamCardDisplayVo;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -39,17 +40,20 @@ public class ExamServiceImpl implements ExamService {
     UserRepository userRepository;
 
     @Override
-    public List<Exam> getUserFinishedExams(UserExamsQo userExamsQo) {
+    public List<ExamCardDisplayVo> getUserFinishedExams(UserExamsQo userExamsQo) {
         List<ExamRecord> allExamRecords = examRecordRepository.findAllByUserId(userExamsQo.getUserId());
-        List<Exam> exams = new ArrayList<>();
+        List<ExamCardDisplayVo> records = new ArrayList<>();
         for (ExamRecord er : allExamRecords) {
             if (er.getExamStatus() == 0) {
                 continue;
             }
             Exam ex = examRepository.findExamByExamId(er.getExamId());
-            exams.add(ex);
+            ExamCardDisplayVo ecdv = new ExamCardDisplayVo();
+            ecdv.setExamName(ex.getExamName());
+            ecdv.setUserScore(er.getExamScore());
+            records.add(ecdv);
         }
-        return exams;
+        return records;
     }
 
     @Override
@@ -199,7 +203,9 @@ public class ExamServiceImpl implements ExamService {
         Long userId = answerSheet.getUserId();
         Long examId = answerSheet.getExamId();
         List<MetaQuestionAnswer> metaQuestionAnswers = answerSheet.getQuestionAnswers();
+
         // get score
+
         for (MetaQuestionAnswer answer : metaQuestionAnswers) {
             Long questionId = answer.getQuestionId();
             String questionAnswer = answer.getSheetAnswer();
@@ -208,6 +214,7 @@ public class ExamServiceImpl implements ExamService {
             if (question == null || questionAnswer == null) {
                 continue;
             }
+
             if (question.getQuestionType().equalsIgnoreCase("multiple")) {
                 boolean multipleCorrect = true;
                 List<String> correctAnswers = List.of(question.getQuestionAnswer().split("$"));
@@ -236,8 +243,8 @@ public class ExamServiceImpl implements ExamService {
                 if (questionAnswer.equalsIgnoreCase(question.getQuestionAnswer())) {
                     score += 1L;
                 }
-
             }
+
         }
         log.info("Judge called");
 

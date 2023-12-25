@@ -5,6 +5,7 @@ import org.tabbleman.oesm.entity.Question;
 import org.tabbleman.oesm.utils.dto.ExamConfigDto;
 import org.tabbleman.oesm.utils.dto.QuestionAnswerSheetDto;
 import org.tabbleman.oesm.utils.qo.UserExamsQo;
+import org.tabbleman.oesm.utils.vo.ExamCardDisplayVo;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface ExamService {
     // for student:
     public List<Long> getUserExamsId(UserExamsQo userExamsQo);
 
-    public List<Exam> getUserFinishedExams(UserExamsQo userExamsQo);
+    public List<ExamCardDisplayVo> getUserFinishedExams(UserExamsQo userExamsQo);
     public List<Exam> getUserAllExams(UserExamsQo userExamsQo);
     public List<Exam> getUserUnfinishedExams(UserExamsQo userExamsQo);
 

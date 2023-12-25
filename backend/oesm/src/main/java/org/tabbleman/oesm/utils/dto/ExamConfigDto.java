@@ -12,6 +12,12 @@ public class ExamConfigDto {
     private String examName;
     private Long classId;
     private Long examQuestionCount;
+    private Long singleCount;
+    private Long singleScore;
+    private Long multipleCount;
+    private Long multipleScore;
+    private Long truefalseCount;
+    private Long truefalseScore;
 
     private String examStartTimeStamp;
 

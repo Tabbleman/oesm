@@ -6,6 +6,6 @@ import lombok.Data;
 public class ExamCardDisplayVo {
     private String examName;
     private Long userScore;
-    private Long totalScore;
+//    private Long totalScore;
 
 }

@@ -16,10 +16,11 @@ export default {
       userId: null,
       examId: null,
       questionAnswers: [
+
       ]
     },
-    examRecord: [],
-    currentExam: null
+    examRecords: [],
+    scores: []
   }),
   mutations: {
     SET_EXAM_CONTEXT(state, {userId, examId}) {
@@ -30,7 +31,9 @@ export default {
     SET_EXAMS(state, exams) {
       state.exams = exams;
     },
-
+    SET_EXAMRECORDS(state, examRecords) {
+      state.examRecords = examRecords;
+    },
     SET_QUESTIONS(state, questions) {
       state.questions = questions;
     },
@@ -74,7 +77,18 @@ export default {
             // 这里可以处理错误，例如显示错误信息
           });
     },
-
+    async fetchExamRecords({commit, rootState}) {
+      // 模拟获取考试记录信息，实际中应替换为API请求
+      const userId = rootState.user.userInfo.userId;
+      api.post('/api/exam/user/exams/finished', {'userId': userId})
+          .then(response => {
+            commit('SET_EXAMRECORDS', response.data);  // 假设响应数据就是考试信息
+          })
+          .catch(error => {
+            console.error('Failed to fetch exams:', error);
+            // 这里可以处理错误，例如显示错误信息
+          });
+    },
     async fetchQuestions({commit, rootState}, examId) {
       return new Promise((resolve, reject) => {
         const userId = rootState.user.userInfo.userId;

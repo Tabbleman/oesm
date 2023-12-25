@@ -90,25 +90,7 @@ export default {
 };
 </script>
 
-<style scoped>
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.navbar-nav .dropdown-menu {
-  display: none; /* 初始状态设置为隐藏 */
-  animation: fadeIn 0.5s ease forwards; /* 应用淡入动画 */
-}
-
-.dropdown:hover .dropdown-menu {
-  display: block; /* 鼠标悬停时显示下拉菜单 */
-}
+<style lang="scss" scoped>
 
 </style>
+

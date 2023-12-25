@@ -36,10 +36,16 @@ export default {
 };
 </script>
 
-<style>
+
+
+<style lang="scss">
+
 .content-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+
 }
+
 </style>
+

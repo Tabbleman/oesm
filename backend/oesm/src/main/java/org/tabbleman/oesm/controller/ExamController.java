@@ -14,6 +14,7 @@ import org.tabbleman.oesm.service.QuestionService;
 import org.tabbleman.oesm.utils.dto.ExamConfigDto;
 import org.tabbleman.oesm.utils.dto.QuestionAnswerSheetDto;
 import org.tabbleman.oesm.utils.qo.UserExamsQo;
+import org.tabbleman.oesm.utils.vo.ExamCardDisplayVo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,8 +58,8 @@ public class ExamController {
 
     }
     @PostMapping("/user/exams/finished")
-    ResponseEntity<List<Exam>> getUserFinishedExams(@RequestBody UserExamsQo userExamsQo) {
-        List<Exam> finishedExams = examService.getUserFinishedExams(userExamsQo);
+    ResponseEntity<List<ExamCardDisplayVo>> getUserFinishedExams(@RequestBody UserExamsQo userExamsQo) {
+        List<ExamCardDisplayVo> finishedExams = examService.getUserFinishedExams(userExamsQo);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(finishedExams);
 
     }
