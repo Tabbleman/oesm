@@ -66,7 +66,6 @@ public class UserServiceImpl implements UserService {
 
         String dbPassword = userRepository.findByUserName(userName).getUserPassword();
         User responseUser = new User();
-        log.info("call login");
         if(dbPassword != null){
             if(dbPassword.equals(userPassword)){
                 // login successfully

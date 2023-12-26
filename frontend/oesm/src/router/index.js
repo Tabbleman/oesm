@@ -36,7 +36,7 @@ router.beforeEach((to, from, next) => {
       store.state.user.userInfo.userName !== '';
 
   if (!isLoggedIn &&
-      to.name !== 'login') {  // 假设有一个名为 'login' 的登录路由
+      to.name !== 'login') {  
     next({name: 'login'});    // 重定向到登录页
   } else {
     next();  // 正常进入目标页面

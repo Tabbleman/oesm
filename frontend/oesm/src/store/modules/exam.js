@@ -144,13 +144,13 @@ export default {
           userId: answerSheet.userId,
           questionAnswers: answerSheet.questionAnswers
         });
-        // 你可以在这里处理响应，例如更新状态或显示消息
         console.log(response.data);
         console.log(answerSheet);
-        commit();  // 如有需要，调用相应的 mutation
+        // 如有需要，调用相应的 mutation
+        commit("RESET_ANSWER_SHEET");  
         alert('提交！答案已成功');
       } catch (error) {
-        // 这里可以处理错误
+        console.log("Error!");
       }
     }
 

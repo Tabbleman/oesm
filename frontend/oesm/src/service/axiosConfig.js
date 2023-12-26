@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: 'http://localhost:8080',
-  // 其他配置...
+  
 });
 
 // 可选：添加请求和响应拦截器

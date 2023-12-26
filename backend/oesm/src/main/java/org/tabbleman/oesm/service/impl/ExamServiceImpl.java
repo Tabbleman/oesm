@@ -143,7 +143,6 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public Exam createExam(ExamConfigDto configDto) {
-        log.info(configDto.toString());
         String examName = configDto.getExamName();
         Long classId = configDto.getClassId();
         Long examQuestionCount = configDto.getExamQuestionCount();

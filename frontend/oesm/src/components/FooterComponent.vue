@@ -2,7 +2,7 @@
   
   <footer class="footer mt-auto py-3 bg-light">
     <div class="container text-center">
-      <p>&copy; {{ currentYear }} 💩</p>
+      <p>&copy; {{ currentYear }} oesm all right reserved.</p>
     </div>
   </footer>
 </template>

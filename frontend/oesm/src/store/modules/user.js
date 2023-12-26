@@ -1,5 +1,7 @@
 // store/modules/user.js
 import api from '@/service/axiosConfig'; // 引入配置的 Axios 实例
+import Swal from 'sweetalert2';
+
 export default {
   namespaced: true,
   state: {
@@ -20,12 +22,17 @@ export default {
             resolve(response);
           })
           .catch(error => {
+            Swal.fire({
+              title: '错误!',
+              text: '登录失败: 账号或密码错误！',
+              icon: 'error',
+              confirmButtonText: '好的'
+            });
             reject(error);
           });
       });
     },
     async logout({commit}){
-
       commit('SET_USER_INFO', null); 
     },
     async uploadUserInfo({commit}, fileCsv) {
@@ -36,6 +43,7 @@ export default {
         console.log(response)
         commit();
       } catch (error) {
+        
         console.log(error);
       }
     },

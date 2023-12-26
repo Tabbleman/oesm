@@ -42,7 +42,6 @@ public class UserController {
     public ResponseEntity<User> login(@RequestBody LoginDto loginDto) {
         try {
             User responseUser = userService.login(loginDto);
-            log.info("Login ...");
             if(responseUser.getUserId() != null) {
                 return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseUser);
             }else {

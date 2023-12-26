@@ -1,6 +1,6 @@
 questionId,questionType,questionName,questionAnswer,questionChoices
 1,single,What is the capital of France?,Paris,Paris$London$Berlin$Madrid
-2,multiple,Select the prime numbers,"2,3,5",2$3$4$5
+2,multiple,Select the prime numbers,"2$3$5",2$3$4$5
 3,truefalse,The earth is flat,False,True$False
 4,single,Which city is known as the 'City of Love'?,Paris,Paris$Rome$New York$London
 5,single,What is the capital of Japan?,Tokyo,Kyoto$Tokyo$Osaka$Hiroshima

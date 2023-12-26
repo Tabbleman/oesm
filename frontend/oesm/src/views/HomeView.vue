@@ -2,12 +2,13 @@
   <div class="content-wrapper">
     <NavbarComponent />
     <div class="container">
-      <h1>💩</h1>
+      <h1>Welcome to online exam system🥰</h1>
       <div class="row">
         <div v-for="exam in exams" :key="exam.id" class="col-md-4 mb-4">
           <ExamCardComponent :exam="exam" />
         </div>
       </div>
+      
     </div>
     <FooterComponent />
   </div>

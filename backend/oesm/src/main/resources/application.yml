@@ -3,4 +3,3 @@ spring:
     url: jdbc:mysql://localhost:8888/oesm
     username: root
     password: z
-

@@ -30,13 +30,14 @@ export default {
     
     login(event) {
       event.preventDefault(); // 阻止表单默认提交行为
-      this.loginUser({ // 调用重命名后的 Vuex action
+      this.loginUser({
+       // 调用重命名后的 Vuex action
         userName: this.username,
         userPassword: this.password
       }).then(() => {
-        this.$router.push('/'); // 登录成功后重定向到首页
+        this.$router.push('/'); 
       }).catch(error => {
-        console.error('Login failed:', error); // 登录失败的处理
+        console.error('Login failed:', error); 
       });
     }
   }

@@ -11,6 +11,7 @@ import QuestionsComponent from '@/components/Exam/QuestionsComponent.vue';
 import TimeOutComponent from '@/components/Exam/TimeOutComponent.vue';
 
 import { mapActions, mapState } from 'vuex';
+
 window.addEventListener('beforeunload', (e) => {
   e.preventDefault();
   e.returnValue = '';

@@ -1,5 +1,5 @@
 # oesm
-online exam system(shit) manager(mountain)💩
+online exam system manager 😑
 
 ## Prerequest
 - Openjdk-17

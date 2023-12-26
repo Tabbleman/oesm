@@ -13,7 +13,7 @@ import java.util.Date;
 
 /**
  * todo add time limit for the exam, different subject, different question score
- *
+ * todo pick different type score question count and score
  */
 @Data
 @NoArgsConstructor
@@ -26,13 +26,6 @@ public class Exam {
     private String examName;
 
     private Long examQuestionCount = 10L;
-
-//    dan xuan
-    private Long examQuestionSingleCount = 3L;
-//    duo xuan
-    private Long examQuestionMultipleCount = 3L;
-//     pan duan
-    private Long examQuestionTfCount = 4L;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp examStartTimeStamp;

@@ -2,12 +2,14 @@
   <div>
     <NavbarComponent />
     <ExamDetailWrapperComponent />
+    <FooterComponent/>
   </div>
 </template>
 
 <script>
 import ExamDetailWrapperComponent from "@/components/Exam/ExamDetailWrapperComponent.vue";
 import NavbarComponent from "@/components/NavbarComponent.vue";
+import FooterComponent from "@/components/FooterComponent.vue";
 
 window.addEventListener("beforeunload", (e) => {
   e.preventDefault();
@@ -18,6 +20,7 @@ export default {
   components: {
     NavbarComponent,
     ExamDetailWrapperComponent,
+    FooterComponent 
   }
 };
 </script>

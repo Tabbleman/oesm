@@ -12,7 +12,7 @@ export default {
   data() {
     return {
       examEndTime: null,
-      totalSeconds: 3600,
+      totalSeconds: 0,
       timer: null,  
       timeLeft: "",
     };
@@ -21,7 +21,7 @@ export default {
   methods: {
     ...mapActions("exam", ["submitExamAnswerSheet"]),
     handleSubmit() {
-      // 假设你的用户 ID 和考试 ID 已经在 Vuex store 中设置好了
+      // 用户 ID 和考试 ID 已经在 Vuex store 中设置好了
       this.submitExamAnswerSheet(this.$store.state.exam.answerSheet)
         .then(() => {
           alert("答案提交成功！");
@@ -33,6 +33,7 @@ export default {
           alert("提交出错！");
         });
     },
+    
     startTimer() {
       this.timer = setInterval(() => {
         if (this.totalSeconds > 0) {
@@ -58,6 +59,9 @@ export default {
     this.examEndTime = new Date(localStorage.getItem('currentExamEndTime'));
     let currentTime = new Date();
     this.totalSeconds = Math.floor((this.examEndTime - currentTime) / 1000) ;
+    if(this.totalSeconds < 0){
+      this.totalSeconds = 0;
+    }
     this.updateTimeLeft();
     this.startTimer();
   },
