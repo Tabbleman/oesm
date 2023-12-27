@@ -60,7 +60,6 @@ export default {
       state.answerSheet = {userId: null, examId: null, questionAnswers: []};
     },
   },
-
   actions: {
     async setExamContext({commit}, {userId, examId}) {
       commit('SET_EXAM_CONTEXT', {userId, examId});
